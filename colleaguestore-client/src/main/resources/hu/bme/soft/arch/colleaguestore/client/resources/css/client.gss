@@ -1,0 +1,15 @@
+/** Add css rules is libvirthere for your application. */
+
+.bookstore_logo{
+	font: 40px arial, sans-serif;
+}
+
+.menu_container_color {
+    background-color: rgb(111,111,111);
+}
+
+.username_in_header {
+	font-size: 20px;
+    font-weight: bold;
+	font-family: tahoma;
+}
