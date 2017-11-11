@@ -17,4 +17,6 @@ public interface PersonFacade {
 
 	void deletePerson(Long id);
 
+	void print();
+
 }

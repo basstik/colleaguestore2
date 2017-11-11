@@ -24,13 +24,13 @@
 
 	<dependencies>
 		<!-- Projekten belüli függőségek. -->
-		<!-- <dependency> -->
-		<!-- <groupId>${project.groupId}</groupId> -->
-		<!-- <artifactId>colleaguestore-facade</artifactId> -->
-		<!-- <version>${project.version}</version> -->
-		<!-- <type>ejb</type> -->
-		<!-- <scope>provided</scope> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>colleaguestore-facade</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- Külső függőségek. -->
 		<dependency>
@@ -58,7 +58,7 @@
 			<artifactId>primefaces</artifactId>
 			<version>6.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.sun.faces</groupId>
 			<artifactId>jsf-api</artifactId>

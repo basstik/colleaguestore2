@@ -58,4 +58,9 @@ public class PersonFacadeBean implements PersonFacade {
 		logger.info("Delete id: " + id);
 		personPM.remove(id);
 	}
+
+	@Override
+	public void print() {
+		logger.info("------------------////////--------__!!!!!!!!!!!!!!!!!!!!!");
+	}
 }
