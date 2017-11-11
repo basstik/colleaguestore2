@@ -15,6 +15,12 @@
 <h:body>
 	#{helloWorld.message}
 
+	<h:form>
+		<h:outputText id="txt_count" value="#{counterView.number}" />
+		<p:poll interval="3" listener="#{counterView.increment}"
+			update="txt_count" />
+	</h:form>
+
 	<p:chart type="line" model="#{chartView.zoomModel}"
 		style="height:300px;" widgetVar="chart" />
 
