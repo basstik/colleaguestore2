@@ -1,12 +1,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
+	>
+
 <head>
 <title>MyWebPage</title>
 </head>
 
 <body>
-#{helloWorld.message}
+	#{helloWorld.message}
+
+	<h:form>
+		<h3>Using JSF outcome</h3>
+		<h:commandButton action="page2" value="Page2" />
+	</h:form>
+
+	<h:form>
+		<h3>Using Managed Bean</h3>
+		<h:commandButton action="#{navigationController.moveToPage1}"
+			value="Page1" />
+	</h:form>
+
+	<h2>Ajax Example</h2>
+
+	<h:form>
+		<h:inputText id="inputName" value="#{userData.name}"></h:inputText>
+		<h:commandButton value="Show Message">
+			<f:ajax execute="inputName" render="outputMessage" />
+		</h:commandButton>
+		<h2>
+			<h:outputText id="outputMessage"
+				value="#{userData.welcomeMessage != null ? userData.welcomeMessage : ''}" />
+		</h2>
+	</h:form>
 </body>
 </html>
