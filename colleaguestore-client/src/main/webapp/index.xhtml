@@ -15,6 +15,12 @@
 <h:body>
 	#{helloWorld.message}
 
+	<p:chart type="line" model="#{chartView.zoomModel}"
+		style="height:300px;" widgetVar="chart" />
+
+	<p:commandButton type="button" value="Reset" icon="ui-icon-cancel"
+		onclick="PF('chart').resetZoom()" />
+
 	<p:accordionPanel>
 		<p:tab title="First Tab Title">
 			<h:outputText value="Lorem" />
@@ -23,10 +29,6 @@
 			<h:outputText value="Ipsum" />
 		</p:tab>
 	</p:accordionPanel>
-
-	<!-- 	<p:button outcome="productDetail" value="Bookmark" icon="ui-icon-star"> -->
-	<!-- 		<f:param name="productId" value="10" /> -->
-	<!-- 	</p:button> -->
 
 	<p:editor />
 
