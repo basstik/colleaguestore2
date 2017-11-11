@@ -5,14 +5,30 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
-	>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
-<head>
-<title>MyWebPage</title>
-</head>
+<h:head>
+	<title>MyWebPage</title>
+</h:head>
 
-<body>
+<h:body>
 	#{helloWorld.message}
+
+	<p:accordionPanel>
+		<p:tab title="First Tab Title">
+			<h:outputText value="Lorem" />
+		</p:tab>
+		<p:tab title="Second Tab Title">
+			<h:outputText value="Ipsum" />
+		</p:tab>
+	</p:accordionPanel>
+
+	<!-- 	<p:button outcome="productDetail" value="Bookmark" icon="ui-icon-star"> -->
+	<!-- 		<f:param name="productId" value="10" /> -->
+	<!-- 	</p:button> -->
+
+	<p:editor />
 
 	<h:form>
 		<h3>Using JSF outcome</h3>
@@ -37,5 +53,5 @@
 				value="#{userData.welcomeMessage != null ? userData.welcomeMessage : ''}" />
 		</h2>
 	</h:form>
-</body>
+</h:body>
 </html>
