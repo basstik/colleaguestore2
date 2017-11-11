@@ -21,8 +21,15 @@
 			update="txt_count" />
 	</h:form>
 
-	<p:chart type="line" model="#{chartView.zoomModel}"
-		style="height:300px;" widgetVar="chart" />
+	<h:form>
+		<p:chart id="packetCounterLineChart" type="line"
+			model="#{chartView.zoomModel}" style="height:300px;"
+			widgetVar="chart" />
+		<p:poll interval="3" listener="#{chartView.increment}"
+			update="packetCounterLineChart" />
+	</h:form>
+
+
 
 	<p:commandButton type="button" value="Reset" icon="ui-icon-cancel"
 		onclick="PF('chart').resetZoom()" />

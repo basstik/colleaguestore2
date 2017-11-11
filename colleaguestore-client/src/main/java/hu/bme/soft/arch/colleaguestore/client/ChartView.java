@@ -64,4 +64,29 @@ public class ChartView implements Serializable {
 
 		return model;
 	}
+
+	private int number;
+
+	public int getNumber() {
+		return number;
+	}
+
+	public void increment() {
+		number++;
+		if (number % 2 == 0) {
+			createZoomModel();
+		} else {
+			zoomModel.getSeries().clear();
+			LineChartSeries series1 = new LineChartSeries();
+			series1.setLabel("Series 1");
+
+			series1.set(1, 2);
+			series1.set(2, 1);
+			series1.set(3, 3);
+			series1.set(4, 6);
+			series1.set(5, 8);
+			zoomModel.getSeries().add(series1);
+		}
+	}
+
 }
