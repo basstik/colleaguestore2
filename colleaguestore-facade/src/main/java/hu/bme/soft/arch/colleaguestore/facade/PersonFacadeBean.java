@@ -1,6 +1,5 @@
 package hu.bme.soft.arch.colleaguestore.facade;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +11,6 @@ import org.slf4j.Logger;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PagingPersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonFilterDTO;
-import hu.bme.soft.arch.colleaguestore.hbase.CreateTable;
 import hu.bme.soft.arch.colleaguestore.persistence.PersonPersistenceManager;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
@@ -64,11 +62,6 @@ public class PersonFacadeBean implements PersonFacade {
 	@Override
 	public void print() {
 		logger.info("------------------////////--------__!!!!!!!!!!!!!!!!!!!!!");
-		try {
-			new CreateTable().createTable();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 	}
 }

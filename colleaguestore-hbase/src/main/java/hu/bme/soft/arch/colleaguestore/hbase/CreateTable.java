@@ -10,13 +10,23 @@ import org.apache.hadoop.hbase.client.HBaseAdmin;
 
 public class CreateTable {
 
-	public void createTable() throws IOException {
+	private static final String HBASE_MASTER = "hbase.master";
+	public static final String HBASE_CONFIGURATION_ZOOKEEPER_QUORUM = "hbase.zookeeper.quorum";
+	public static final String HBASE_CONFIGURATION_ZOOKEEPER_CLIENTPORT = "hbase.zookeeper.property.clientPort";
+
+	public static void main(String[] args) throws IOException {
 
 		// Instantiating configuration class
 		Configuration con = HBaseConfiguration.create();
 
+		con.set(HBASE_CONFIGURATION_ZOOKEEPER_QUORUM, "192.168.100.57");
+		con.setInt(HBASE_CONFIGURATION_ZOOKEEPER_CLIENTPORT, 10000);
+		con.set(HBASE_MASTER, "192.168.100.57:60000");
+
 		// Instantiating HbaseAdmin class
 		HBaseAdmin admin = new HBaseAdmin(con);
+		// HBaseAdmin.checkHBaseAvailable(con);
+		System.out.println("HBase is running!");
 
 		// Instantiating table descriptor class
 		HTableDescriptor tableDescriptor = new HTableDescriptor("emp3");
@@ -28,5 +38,6 @@ public class CreateTable {
 		// Execute the table through admin
 		admin.createTable(tableDescriptor);
 		System.out.println(" Table created ");
+
 	}
 }

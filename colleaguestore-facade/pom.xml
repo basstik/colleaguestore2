@@ -25,13 +25,12 @@
 			<artifactId>colleaguestore-domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>${project.groupId}</groupId>
-			<artifactId>colleaguestore-hbase</artifactId>
-			<version>${project.version}</version>
-			<type>jar</type>
-<!-- 			<scope>compile</scope> -->
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>${project.groupId}</groupId> -->
+		<!-- <artifactId>colleaguestore-hbase</artifactId> -->
+		<!-- <version>${project.version}</version> -->
+		<!-- <type>jar</type> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>colleaguestore-business</artifactId>
@@ -48,6 +47,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.3</version>
+		</dependency>
+
 	</dependencies>
 
 </project>
