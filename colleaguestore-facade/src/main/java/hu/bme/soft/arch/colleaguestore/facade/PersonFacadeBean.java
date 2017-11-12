@@ -3,11 +3,18 @@ package hu.bme.soft.arch.colleaguestore.facade;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.stream.JsonParser;
+import javax.json.stream.JsonParser.Event;
 
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -102,12 +109,45 @@ public class PersonFacadeBean implements PersonFacade {
 			while ((line = rd.readLine()) != null) {
 				result.append(line);
 			}
+			System.out.println(result.toString());
+			parseJson(result.toString());
 		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void parseJson(String result) {
+		JsonReader jsonReader = Json.createReader(new StringReader(result));
+		JsonObject jobj = jsonReader.readObject();
+		final JsonParser parser = Json.createParser(new StringReader(result));
+
+		String key = null;
+		String value = null;
+		while (parser.hasNext()) {
+			final Event event = parser.next();
+			switch (event) {
+			case KEY_NAME:
+				key = parser.getString();
+				System.out.println("KEY_NAME" + key);
+				break;
+			case VALUE_STRING:
+				String string = parser.getString();
+				System.out.println("VALUE_STRING" + string);
+				break;
+			case VALUE_NUMBER:
+				BigDecimal number = parser.getBigDecimal();
+				System.out.println("VALUE_NUMBER" + number);
+				break;
+			case VALUE_TRUE:
+				System.out.println(true);
+				break;
+			case VALUE_FALSE:
+				System.out.println(false);
+				break;
+			}
+		}
+		parser.close();
 	}
 }
