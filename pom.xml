@@ -18,6 +18,7 @@
 		<module>colleaguestore-facade</module>
 		<module>colleaguestore-client</module>
 		<module>colleaguestore-ear</module>
+		<module>colleaguestore-hbase</module>
 	</modules>
 
 	<properties>
