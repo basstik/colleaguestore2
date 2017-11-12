@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
 import javax.json.stream.JsonParser;
-import javax.json.stream.JsonParser.Event;
 
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -26,6 +24,9 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
+
+import com.jayway.jsonpath.Configuration;
+import com.jayway.jsonpath.JsonPath;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.PagingPersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
@@ -82,9 +83,9 @@ public class PersonFacadeBean implements PersonFacade {
 	// http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:84590320485820/group/150010/group-statistics/
 
 	@Override
-	public void print() {
+	public Long printPacketCount() {
 		try {
-			String url = "http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:84590320485820/group/150010/group-statistics/";
+			String url = "http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:84590320485820/group/150010/group-statistics/buckets";
 
 			CredentialsProvider credsProvider = new BasicCredentialsProvider();
 			// Credentials defaultcreds = new UsernamePasswordCredentials("admin", "admin");
@@ -110,44 +111,26 @@ public class PersonFacadeBean implements PersonFacade {
 				result.append(line);
 			}
 			System.out.println(result.toString());
-			parseJson(result.toString());
+			return parseJson(result.toString());
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return 0L;
 	}
 
-	private void parseJson(String result) {
+	private Long parseJson(String result) {
+
 		JsonReader jsonReader = Json.createReader(new StringReader(result));
-		JsonObject jobj = jsonReader.readObject();
+		JsonObject jsonObject = jsonReader.readObject();
 		final JsonParser parser = Json.createParser(new StringReader(result));
 
-		String key = null;
-		String value = null;
-		while (parser.hasNext()) {
-			final Event event = parser.next();
-			switch (event) {
-			case KEY_NAME:
-				key = parser.getString();
-				System.out.println("KEY_NAME" + key);
-				break;
-			case VALUE_STRING:
-				String string = parser.getString();
-				System.out.println("VALUE_STRING" + string);
-				break;
-			case VALUE_NUMBER:
-				BigDecimal number = parser.getBigDecimal();
-				System.out.println("VALUE_NUMBER" + number);
-				break;
-			case VALUE_TRUE:
-				System.out.println(true);
-				break;
-			case VALUE_FALSE:
-				System.out.println(false);
-				break;
-			}
-		}
-		parser.close();
+		Object document = Configuration.defaultConfiguration().jsonProvider().parse(result);
+		// String string = ";
+		Object read = JsonPath.read(document, "$.opendaylight-group-statistics:buckets.bucket-counter[0].packet-count");
+		System.out.println("Na: " + String.valueOf(Long.parseLong(String.valueOf(read))));
+		return Long.parseLong(String.valueOf(read));
 	}
+
 }

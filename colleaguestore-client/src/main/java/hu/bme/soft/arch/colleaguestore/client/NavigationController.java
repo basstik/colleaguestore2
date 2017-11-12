@@ -18,7 +18,7 @@ public class NavigationController implements Serializable {
 	private PersonFacade personFacade;
 
 	public String moveToPage1() {
-		personFacade.print();
+		personFacade.printPacketCount();
 		return "page1";
 	}
 }
