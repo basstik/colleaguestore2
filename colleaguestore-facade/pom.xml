@@ -27,6 +27,13 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>colleaguestore-hbase</artifactId>
+			<version>${project.version}</version>
+			<type>jar</type>
+<!-- 			<scope>compile</scope> -->
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>colleaguestore-business</artifactId>
 			<version>${project.version}</version>
 			<type>ejb</type>
