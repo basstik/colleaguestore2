@@ -1,15 +1,18 @@
 package hu.bme.soft.arch.colleaguestore.client;
 
 import java.io.Serializable;
+import java.util.LinkedHashMap;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Default;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
-import org.primefaces.model.chart.Axis;
-import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
+
+import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 
 @ManagedBean
 @ViewScoped
@@ -19,74 +22,55 @@ public class ChartView implements Serializable {
 
 	private LineChartModel zoomModel;
 
+	@Default
+	@SuppressWarnings({ "unused", "cdi-ambiguous-dependency" })
+	@Inject
+	private PersonFacade personFacade;
+
 	@PostConstruct
 	public void init() {
-		createZoomModel();
+		LineChartSeries series1 = new LineChartSeries();
+		series1.setLabel("Series 1");
+		LinkedHashMap<Object, Number> linkedHashMap = new LinkedHashMap<Object, Number>();
+		linkedHashMap.put(1, 450);
+		linkedHashMap.put(2, 462);
+		linkedHashMap.put(3, 500);
+		linkedHashMap.put(4, 530);
+		createZoomModel(linkedHashMap);
 	}
 
 	public LineChartModel getZoomModel() {
 		return zoomModel;
 	}
 
-	private void createZoomModel() {
-		zoomModel = initLinearModel();
+	public void increment() {
+		number++;
+		LinkedHashMap<Object, Number> linkedHashMap = personFacade.getMap();
+		createZoomModel(linkedHashMap);
+	}
+
+	private void createZoomModel(LinkedHashMap<Object, Number> linkedHashMap) {
+		zoomModel = initLinearModel2(linkedHashMap);
 		zoomModel.setTitle("PacketCounter");
 		zoomModel.setZoom(true);
 		zoomModel.setLegendPosition("e");
-		Axis yAxis = zoomModel.getAxis(AxisType.Y);
-		yAxis.setMin(0);
-		yAxis.setMax(10);
+		// Axis yAxis = zoomModel.getAxis(AxisType.Y);
+		// yAxis.setMin(350);
+		// yAxis.setMax(550);
 	}
 
-	private LineChartModel initLinearModel() {
+	private LineChartModel initLinearModel2(LinkedHashMap<Object, Number> linkedHashMap) {
 		LineChartModel model = new LineChartModel();
-
 		LineChartSeries series1 = new LineChartSeries();
-		series1.setLabel("Series 1");
-
-		series1.set(1, 2);
-		series1.set(2, 1);
-		series1.set(3, 3);
-		series1.set(4, 6);
-		series1.set(5, 8);
-
-		LineChartSeries series2 = new LineChartSeries();
-		series2.setLabel("Series 2");
-
-		series2.set(1, 6);
-		series2.set(2, 3);
-		series2.set(3, 2);
-		series2.set(4, 7);
-		series2.set(5, 9);
-
+		series1.setLabel("PacketCounter");
+		series1.setData(linkedHashMap);
 		model.addSeries(series1);
-		model.addSeries(series2);
-
 		return model;
 	}
 
-	private int number;
+	private int number = 0;
 
 	public int getNumber() {
 		return number;
 	}
-
-	public void increment() {
-		number++;
-		if (number % 2 == 0) {
-			createZoomModel();
-		} else {
-			zoomModel.getSeries().clear();
-			LineChartSeries series1 = new LineChartSeries();
-			series1.setLabel("Series 1");
-
-			series1.set(1, 2);
-			series1.set(2, 1);
-			series1.set(3, 3);
-			series1.set(4, 6);
-			series1.set(5, 8);
-			zoomModel.getSeries().add(series1);
-		}
-	}
-
 }

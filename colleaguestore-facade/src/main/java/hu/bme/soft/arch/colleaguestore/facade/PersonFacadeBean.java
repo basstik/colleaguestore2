@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
-import javax.ejb.Stateless;
+import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObject;
@@ -34,7 +35,7 @@ import hu.bme.soft.arch.colleaguestore.domain.dto.PersonFilterDTO;
 import hu.bme.soft.arch.colleaguestore.persistence.PersonPersistenceManager;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
-@Stateless
+@Singleton
 public class PersonFacadeBean implements PersonFacade {
 
 	@Inject
@@ -42,6 +43,12 @@ public class PersonFacadeBean implements PersonFacade {
 
 	@Inject
 	Logger logger;
+
+	private List<Long> list = new ArrayList<>();
+
+	public List<Long> getList() {
+		return list;
+	}
 
 	@Override
 	public PagingPersonDTO getPersons(PersonFilterDTO personFilterDTO) {
@@ -131,6 +138,17 @@ public class PersonFacadeBean implements PersonFacade {
 		Object read = JsonPath.read(document, "$.opendaylight-group-statistics:buckets.bucket-counter[0].packet-count");
 		System.out.println("Na: " + String.valueOf(Long.parseLong(String.valueOf(read))));
 		return Long.parseLong(String.valueOf(read));
+	}
+
+	LinkedHashMap<Object, Number> linkedHashMap = new LinkedHashMap<Object, Number>();
+
+	@Override
+	public LinkedHashMap<Object, Number> getMap() {
+		// linkedHashMap.put(1, 450);
+		// linkedHashMap.put(2, 462);
+		// linkedHashMap.put(3, 500);
+		linkedHashMap.put(linkedHashMap.keySet().size() + 1, printPacketCount() + Math.random() * 10);
+		return linkedHashMap;
 	}
 
 }
