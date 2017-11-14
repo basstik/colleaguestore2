@@ -1,5 +1,7 @@
 package hu.bme.soft.arch.colleaguestore.facade;
 
+import java.util.LinkedHashMap;
+
 import javax.ejb.Local;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.PagingPersonDTO;

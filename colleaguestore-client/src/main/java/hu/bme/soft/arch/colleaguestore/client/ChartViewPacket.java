@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Default;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
@@ -14,21 +15,19 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
-import hu.bme.soft.arch.colleaguestore.facade.MyWrapper;
 import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 
 @ManagedBean
 @ViewScoped
-public class ChartView implements Serializable {
+public class ChartViewPacket implements Serializable {
 
 	private static final long serialVersionUID = 11L;
 
-	private LineChartModel zoomModel;
+	private LineChartModel zoomModelPacket;
 
-	@Default
-	@SuppressWarnings({ "unused", "cdi-ambiguous-dependency" })
-	@Inject
-	private PersonFacade personFacade;
+	public LineChartModel getZoomModelPacket() {
+		return zoomModelPacket;
+	}
 
 	@PostConstruct
 	public void init() {
@@ -39,52 +38,47 @@ public class ChartView implements Serializable {
 		linkedHashMap.put(2, 462);
 		linkedHashMap.put(3, 500);
 		linkedHashMap.put(4, 530);
-		createZoomModel(linkedHashMap);
+		createZoomModelPacket(linkedHashMap);
 	}
 
 	public LineChartModel getZoomModel() {
-		return zoomModel;
+		return zoomModelPacket;
 	}
+
+//    @ManagedProperty(value = "counter")
+	@Inject
+	CounterView counterview;
 
 	public void increment() {
-		number++;
-		MyWrapper myWrapper = personFacade.getMap();
-		// LinkedHashMap<Object, Number> linkedHashMap2 = new LinkedHashMap<Object,
-		// Number>();
-		//
-		// for (int i = 0; i < linkedHashMap.size(); i++) {
-		// System.out.println("i" + i + " :" + linkedHashMap.get(i));
-		// linkedHashMap2.put(i, linkedHashMap.get(i));
-		//
-		// }
-		System.out.println(myWrapper.getLinkedHashMapPacket().size() + " is size");
-		createZoomModel(myWrapper.getLinkedHashMapPacket());
+		if (counterview == null) {
+			System.out.println("////////////////////////////////////////");
+			return;
+		}
+		
+		if (counterview.linkedHashMapPacket != null) {
+			System.out.println(counterview.linkedHashMapPacket.size() + " is size!!!!!!!");
+			createZoomModelPacket(counterview.linkedHashMapPacket);
+		}
+
 	}
 
-	private void createZoomModel(LinkedHashMap<Object, Number> linkedHashMap) {
-		zoomModel = initLinearModel2(linkedHashMap);
-		zoomModel.setTitle("PacketCounter");
-		zoomModel.setZoom(true);
-		zoomModel.setLegendPosition("e");
-		Axis yAxis = zoomModel.getAxis(AxisType.Y);
+	private void createZoomModelPacket(LinkedHashMap<Object, Number> linkedHashMap) {
+		zoomModelPacket = initLinearModelPacket(linkedHashMap);
+		zoomModelPacket.setTitle("PacketCounter");
+		zoomModelPacket.setZoom(true);
+		zoomModelPacket.setLegendPosition("e");
+		Axis yAxis = zoomModelPacket.getAxis(AxisType.Y);
 		yAxis.setLabel("PacketCounter");
-		Axis xAxis = zoomModel.getAxis(AxisType.X);
+		Axis xAxis = zoomModelPacket.getAxis(AxisType.X);
 		xAxis.setLabel("Time");
-		// yAxis.setMax(550);
 	}
 
-	private LineChartModel initLinearModel2(LinkedHashMap<Object, Number> linkedHashMap) {
+	private LineChartModel initLinearModelPacket(LinkedHashMap<Object, Number> linkedHashMap) {
 		LineChartModel model = new LineChartModel();
 		LineChartSeries series1 = new LineChartSeries();
 		series1.setLabel("PacketCounter");
 		series1.setData(linkedHashMap);
 		model.addSeries(series1);
 		return model;
-	}
-
-	private int number = 0;
-
-	public int getNumber() {
-		return number;
 	}
 }

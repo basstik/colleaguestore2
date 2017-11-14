@@ -14,30 +14,19 @@
 
 <h:body>
 	#{helloWorld.message}
-
 	<h:form>
-		<h:outputText id="txt_count" value="#{counterView.number}" />
-		<p:poll interval="1" listener="#{counterView.increment}"
-			update="txt_count" />
+		<p:poll interval="1" listener="#{counterView.increment}"/>
 	</h:form>
 
-	<p:inputText id="name" required="false" />
+    <p:inputText id="name" required="false" />
 
-	<h:form >
-		<p:chart id="packetCounterLineChart" type="line" model="#{chartView.zoomModel}"
-			style="height:300px;" widgetVar="chart" />
-		<p:poll interval="1" listener="#{chartView.increment}"
-			update="packetCounterLineChart" />
-	</h:form>
 
 	<h:form>
 		<p:chart id="packetCounterLineChart" type="line"
-			model="#{chartView.zoomModel}" style="height:300px;"
+			model="#{chartViewPacket.zoomModelPacket}" style="height:300px;"
 			widgetVar="chart" />
-		<p:poll interval="1" listener="#{chartView.increment}"
-			update="packetCounterLineChart" />
-	</h:form>
 
+	</h:form>
 
 
 	<p:commandButton type="button" value="Reset" icon="ui-icon-cancel"
