@@ -14,6 +14,7 @@ import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
+import hu.bme.soft.arch.colleaguestore.facade.MyWrapper;
 import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 
 @ManagedBean
@@ -47,7 +48,7 @@ public class ChartView implements Serializable {
 
 	public void increment() {
 		number++;
-		LinkedHashMap<Object, Number> linkedHashMap = personFacade.getMap();
+		MyWrapper myWrapper = personFacade.getMap();
 		// LinkedHashMap<Object, Number> linkedHashMap2 = new LinkedHashMap<Object,
 		// Number>();
 		//
@@ -56,8 +57,8 @@ public class ChartView implements Serializable {
 		// linkedHashMap2.put(i, linkedHashMap.get(i));
 		//
 		// }
-		System.out.println(linkedHashMap.size() + " is size");
-		createZoomModel(linkedHashMap);
+		System.out.println(myWrapper.getLinkedHashMapPacket().size() + " is size");
+		createZoomModel(myWrapper.getLinkedHashMapPacket());
 	}
 
 	private void createZoomModel(LinkedHashMap<Object, Number> linkedHashMap) {
