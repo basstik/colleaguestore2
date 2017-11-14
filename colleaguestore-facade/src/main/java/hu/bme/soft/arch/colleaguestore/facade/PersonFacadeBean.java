@@ -6,14 +6,13 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.ejb.Singleton;
 import javax.inject.Inject;
 import javax.json.Json;
-import javax.json.JsonObject;
 import javax.json.JsonReader;
-import javax.json.stream.JsonParser;
 
 import org.apache.http.auth.AuthScope;
 import org.apache.http.auth.UsernamePasswordCredentials;
@@ -87,12 +86,11 @@ public class PersonFacadeBean implements PersonFacade {
 	}
 
 	// curl -u admin:admin
-	// http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:84590320485820/group/150010/group-statistics/
+	// http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:105951039177862/group/150010/group-statistics/buckets
 
-	@Override
-	public Long printPacketCount() {
+	private Long getActualPacketCount() {
 		try {
-			String url = "http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:84590320485820/group/150010/group-statistics/buckets";
+			String url = "http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:105951039177862/group/150010/group-statistics/buckets";
 
 			CredentialsProvider credsProvider = new BasicCredentialsProvider();
 			// Credentials defaultcreds = new UsernamePasswordCredentials("admin", "admin");
@@ -130,8 +128,6 @@ public class PersonFacadeBean implements PersonFacade {
 	private Long parseJson(String result) {
 
 		JsonReader jsonReader = Json.createReader(new StringReader(result));
-		JsonObject jsonObject = jsonReader.readObject();
-		final JsonParser parser = Json.createParser(new StringReader(result));
 
 		Object document = Configuration.defaultConfiguration().jsonProvider().parse(result);
 		// String string = ";
@@ -140,15 +136,35 @@ public class PersonFacadeBean implements PersonFacade {
 		return Long.parseLong(String.valueOf(read));
 	}
 
-	LinkedHashMap<Object, Number> linkedHashMap = new LinkedHashMap<Object, Number>();
+	private static Integer time = 0;
 
 	@Override
 	public LinkedHashMap<Object, Number> getMap() {
-		// linkedHashMap.put(1, 450);
-		// linkedHashMap.put(2, 462);
-		// linkedHashMap.put(3, 500);
-		linkedHashMap.put(linkedHashMap.keySet().size() + 1, printPacketCount() + Math.random() * 10);
+		Long value = getActualPacketCount();
+		add(value);
+		System.out.println("kapot érték: " + value);
+		System.out.println("Time " + time);
+		System.out.println(" bounded.size() " + bounded.size());
+
+		LinkedHashMap<Object, Number> linkedHashMap = new LinkedHashMap<Object, Number>(capacity);
+
+		for (int i = 0; i < bounded.size(); i++) {
+			linkedHashMap.put(time + i, bounded.get(i));
+		}
+		System.out.println(linkedHashMap);
+		time++;
 		return linkedHashMap;
+	}
+
+	LinkedList<Long> bounded = new LinkedList<Long>();
+
+	private static final int capacity = 40;
+
+	private void add(Long i) {
+		if (bounded.size() == capacity) {
+			bounded.poll();
+		}
+		bounded.add(i);
 	}
 
 }

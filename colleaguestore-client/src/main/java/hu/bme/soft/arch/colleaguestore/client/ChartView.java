@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.inject.Inject;
 
+import org.primefaces.model.chart.Axis;
+import org.primefaces.model.chart.AxisType;
 import org.primefaces.model.chart.LineChartModel;
 import org.primefaces.model.chart.LineChartSeries;
 
@@ -46,6 +48,15 @@ public class ChartView implements Serializable {
 	public void increment() {
 		number++;
 		LinkedHashMap<Object, Number> linkedHashMap = personFacade.getMap();
+		// LinkedHashMap<Object, Number> linkedHashMap2 = new LinkedHashMap<Object,
+		// Number>();
+		//
+		// for (int i = 0; i < linkedHashMap.size(); i++) {
+		// System.out.println("i" + i + " :" + linkedHashMap.get(i));
+		// linkedHashMap2.put(i, linkedHashMap.get(i));
+		//
+		// }
+		System.out.println(linkedHashMap.size() + " is size");
 		createZoomModel(linkedHashMap);
 	}
 
@@ -54,8 +65,10 @@ public class ChartView implements Serializable {
 		zoomModel.setTitle("PacketCounter");
 		zoomModel.setZoom(true);
 		zoomModel.setLegendPosition("e");
-		// Axis yAxis = zoomModel.getAxis(AxisType.Y);
-		// yAxis.setMin(350);
+		Axis yAxis = zoomModel.getAxis(AxisType.Y);
+		yAxis.setLabel("PacketCounter");
+		Axis xAxis = zoomModel.getAxis(AxisType.X);
+		xAxis.setLabel("Time");
 		// yAxis.setMax(550);
 	}
 

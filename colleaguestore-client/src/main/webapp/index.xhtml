@@ -17,15 +17,17 @@
 
 	<h:form>
 		<h:outputText id="txt_count" value="#{counterView.number}" />
-		<p:poll interval="3" listener="#{counterView.increment}"
+		<p:poll interval="1" listener="#{counterView.increment}"
 			update="txt_count" />
 	</h:form>
+
+    <p:inputText id="name" required="false" />
 
 	<h:form>
 		<p:chart id="packetCounterLineChart" type="line"
 			model="#{chartView.zoomModel}" style="height:300px;"
 			widgetVar="chart" />
-		<p:poll interval="3" listener="#{chartView.increment}"
+		<p:poll interval="1" listener="#{chartView.increment}"
 			update="packetCounterLineChart" />
 	</h:form>
 

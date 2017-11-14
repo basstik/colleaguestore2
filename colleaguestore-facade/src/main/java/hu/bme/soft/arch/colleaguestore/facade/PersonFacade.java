@@ -19,8 +19,6 @@ public interface PersonFacade {
 
 	void deletePerson(Long id);
 
-	Long printPacketCount();
-
 	LinkedHashMap<Object, Number> getMap();
 
 }
