@@ -15,17 +15,21 @@
 <h:body>
 	#{helloWorld.message}
 	<h:form>
-		<p:poll interval="1" listener="#{counterView.increment}"/>
+		<p:poll interval="1" listener="#{counterView.increment}" />
 	</h:form>
 
-    <p:inputText id="name" required="false" />
+	<p:inputText id="name" required="false" />
 
-
-	<h:form>
+	<h:form id="alma">
 		<p:chart id="packetCounterLineChart" type="line"
 			model="#{chartViewPacket.zoomModelPacket}" style="height:300px;"
-			widgetVar="chart" />
+			widgetVar="chartPacket" />			
+	</h:form>
 
+	<h:form id="korte">
+		<p:chart id="byteCounterLineChart" type="line"
+			model="#{chartViewByte.zoomModelByte}" style="height:300px;"
+			widgetVar="chartLine" />
 	</h:form>
 
 
