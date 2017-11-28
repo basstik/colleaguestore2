@@ -9,19 +9,33 @@
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
-	<title>MyWebPage</title>
+	<title>Teams Page</title>
 </h:head>
 
 <h:body>
-<p:dataTable var="team" value="#{teamView.teams}">
-    <p:column headerText="Id">
-        <h:outputText value="#{team.id}" />
-    </p:column>
- 
-    <p:column headerText="Name">
-        <h:outputText value="#{team.name}" />
-    </p:column>
 
-</p:dataTable>
+	<h:form>
+
+		<p:growl id="growl" life="2000" />
+		<p:commandButton value="Ajax Submit" id="ajax" update="growl"
+			actionListener="#{newButtonView.buttonAction}"
+			styleClass="ui-priority-primary" />
+	</h:form>
+
+
+	<p:dataTable var="team" value="#{teamView.teams}">
+		<f:facet name="header">
+        List of Teams
+    </f:facet>
+
+		<p:column headerText="Id">
+			<h:outputText value="#{team.id}" />
+		</p:column>
+
+		<p:column headerText="Name">
+			<h:outputText value="#{team.name}" />
+		</p:column>
+
+	</p:dataTable>
 </h:body>
 </html>
