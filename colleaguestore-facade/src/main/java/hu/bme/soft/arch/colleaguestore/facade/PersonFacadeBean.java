@@ -90,7 +90,7 @@ public class PersonFacadeBean implements PersonFacade {
 
 	private String getActualPacketCount() {
 		try {
-			String url = "http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:105951039177862/group/150010/group-statistics/buckets";
+			String url = "http://152.66.245.130:84/restconf/operational/opendaylight-inventory:nodes/node/openflow:246548217432896/group/150010/group-statistics/buckets";
 
 			CredentialsProvider credsProvider = new BasicCredentialsProvider();
 			credsProvider.setCredentials(new AuthScope("152.66.245.130", AuthScope.ANY_PORT),
@@ -145,9 +145,9 @@ public class PersonFacadeBean implements PersonFacade {
 		System.out.println("Time " + time);
 		System.out.println(" bounded.size() " + packetCounter.size());
 
-		LinkedHashMap<Object, Number> linkedHashMapPacket = new LinkedHashMap<Object, Number>(capacity);
+		LinkedHashMap<Object, Number> linkedHashMapPacket = new LinkedHashMap<Object, Number>(CAPACITY);
 
-		LinkedHashMap<Object, Number> linkedHashMapByte = new LinkedHashMap<Object, Number>(capacity);
+		LinkedHashMap<Object, Number> linkedHashMapByte = new LinkedHashMap<Object, Number>(CAPACITY);
 
 		
 		for (int i = 0; i < packetCounter.size(); i++) {
@@ -167,17 +167,17 @@ public class PersonFacadeBean implements PersonFacade {
 	LinkedList<Long> byteCounter = new LinkedList<Long>();
 
 
-	private static final int capacity = 40;
+	private static final int CAPACITY = 40;
 
 	private void addPacket(Long i) {
-		if (packetCounter.size() == capacity) {
+		if (packetCounter.size() == CAPACITY) {
 			packetCounter.poll();
 		}
 		packetCounter.add(i);
 	}
 	
 	private void addByte(Long i) {
-		if (byteCounter.size() == capacity) {
+		if (byteCounter.size() == CAPACITY) {
 			byteCounter.poll();
 		}
 		byteCounter.add(i);
