@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
@@ -18,9 +21,6 @@ public class TeamView implements Serializable {
 
 	private List<TeamDTO> teams;
 
-	// @ManagedProperty("#{teamService}")
-	// private TeamService service;
-
 	@SuppressWarnings("cdi-ambiguous-dependency")
 	@Inject
 	private TeamFacade teamFacade;
@@ -29,14 +29,19 @@ public class TeamView implements Serializable {
 	public void init() {
 		teams = new ArrayList<TeamDTO>();
 		teams.add(new TeamDTO(1L, "SzuperCsapat"));
+		teams = teamFacade.getTeams();
+	}
+
+	public void refreshButtonAction(ActionEvent actionEvent) {
+		addMessage("Welcome to Primefaces!!");
+	}
+
+	public void addMessage(String summary) {
+		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+		FacesContext.getCurrentInstance().addMessage(null, message);
 	}
 
 	public List<TeamDTO> getTeams() {
-		// return teams;
-		return teamFacade.getTeams();
+		return teams;
 	}
-
-	// public void setService(CarService service) {
-	// this.service = service;
-	// }
 }

@@ -15,12 +15,17 @@
 <h:body>
 
 	<h:form>
-
 		<p:growl id="growl" life="2000" />
-		<p:commandButton value="Ajax Submit" id="ajax" update="growl"
-			actionListener="#{newButtonView.buttonAction}"
+		<p:commandButton value="Refresh" id="ajax" update="growl"
+			actionListener="#{teamView.refreshButtonAction}"
 			styleClass="ui-priority-primary" />
+		<p:commandButton value="New " type="button"
+			onclick="PF('newTeamDlg').show();" />
 	</h:form>
+
+	<p:dialog header="New Team" widgetVar="newTeamDlg" minHeight="40">
+		<h:outputText value="Resistance to PrimeFaces is futile!" />
+	</p:dialog>
 
 
 	<p:dataTable var="team" value="#{teamView.teams}">
