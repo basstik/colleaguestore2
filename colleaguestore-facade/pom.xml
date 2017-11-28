@@ -25,12 +25,6 @@
 			<artifactId>colleaguestore-domain</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-		<!-- <dependency> -->
-		<!-- <groupId>${project.groupId}</groupId> -->
-		<!-- <artifactId>colleaguestore-hbase</artifactId> -->
-		<!-- <version>${project.version}</version> -->
-		<!-- <type>jar</type> -->
-		<!-- </dependency> -->
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>colleaguestore-business</artifactId>
@@ -47,36 +41,6 @@
 			<artifactId>slf4j-api</artifactId>
 			<scope>provided</scope>
 		</dependency>
-
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.3</version>
-		</dependency>
-
-		<dependency>
-			<groupId>javax.json</groupId>
-			<artifactId>javax.json-api</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.glassfish</groupId>
-			<artifactId>javax.json</artifactId>
-			<version>1.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.jayway.jsonpath</groupId>
-			<artifactId>json-path</artifactId>
-			<version>2.3.0</version>
-		</dependency>
-<!-- 		<dependency> -->
-<!-- 			<groupId>junit</groupId> -->
-<!-- 			<artifactId>junit</artifactId> -->
-<!-- 			<version>3.8</version> -->
-<!-- 			<scope>test</scope> -->
-	<!-- </dependency> -->
 	</dependencies>
 
 </project>

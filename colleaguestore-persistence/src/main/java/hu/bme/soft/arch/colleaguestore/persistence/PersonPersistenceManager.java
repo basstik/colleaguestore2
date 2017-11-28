@@ -47,4 +47,9 @@ public class PersonPersistenceManager extends BasePersistenceManager<Person> {
 	public Class<Person> getEntityClass() {
 		return Person.class;
 	}
+
+	public List<Person> getPersons() {
+		TypedQuery<Person> query = getEntityManager().createNamedQuery("Person.findAll", Person.class);
+		return query.getResultList();
+	}
 }

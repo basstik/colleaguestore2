@@ -1,12 +1,9 @@
 package hu.bme.soft.arch.colleaguestore.persistence.entity;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -19,7 +16,6 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import hu.bme.soft.arch.colleaguestore.domain.enumeration.LanguageSkill;
 import hu.bme.soft.arch.colleaguestore.domain.enumeration.Position;
 
 @Entity
@@ -47,11 +43,11 @@ public class Person extends BaseEntity {
 	@Column(name = "position")
 	private Position position;
 
-	@JoinTable(name = "person_skill", joinColumns = @JoinColumn(name = "ID"))
-	@Enumerated(EnumType.STRING)
-	@ElementCollection
-	@Column(name = "skill", length = 20)
-	private Set<LanguageSkill> skill;
+	// @JoinTable(name = "person_skill", joinColumns = @JoinColumn(name = "ID"))
+	// @Enumerated(EnumType.STRING)
+	// @ElementCollection
+	// @Column(name = "skill", length = 20)
+	// private Set<LanguageSkill> skill;
 
 	@ManyToMany
 	@JoinTable(name = "PERSON_TEAM", joinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"))
@@ -61,14 +57,18 @@ public class Person extends BaseEntity {
 	}
 
 	public Person(String firstName, String lastName, String nationality, Date dateOfBirth, Position position) {
-		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
 		this.position = position;
-		this.skill = skill;
-		this.teams = teams;
+	}
+
+	public Person(String firstName, String lastName, String nationality, Date dateOfBirth) {
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nationality = nationality;
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getFirstName() {
@@ -111,16 +111,11 @@ public class Person extends BaseEntity {
 		this.position = position;
 	}
 
-	public Collection<LanguageSkill> getSkill() {
-		return skill;
-	}
-
-	public List<Team> getTeams() {
-		return teams;
-	}
-
-	public void setTeams(List<Team> teams) {
-		this.teams = teams;
-	}
-
+	// public Collection<LanguageSkill> getSkill() {
+	// return skill;
+	// }
+	//
+	// public void setSkill(Set<LanguageSkill> skill) {
+	// this.skill = skill;
+	// }
 }

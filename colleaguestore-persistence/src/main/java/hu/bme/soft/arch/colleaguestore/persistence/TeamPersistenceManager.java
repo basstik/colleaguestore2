@@ -47,4 +47,9 @@ public class TeamPersistenceManager extends BasePersistenceManager<Team> {
 		return Team.class;
 	}
 
+	public List<Team> getTeams() {
+		TypedQuery<Team> query = getEntityManager().createNamedQuery("Team.findAll", Team.class);
+		return query.getResultList();
+	}
+
 }

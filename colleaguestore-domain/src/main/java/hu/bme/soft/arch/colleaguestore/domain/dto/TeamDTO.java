@@ -8,15 +8,12 @@ public class TeamDTO implements Serializable {
 
 	private String name;
 
-	private PersonDTO boss;
-
 	public TeamDTO() {
 	}
 
-	public TeamDTO(Long id, String name, PersonDTO person) {
+	public TeamDTO(Long id, String name) {
 		this.id = id;
 		this.name = name;
-		this.setBoss(person);
 	}
 
 	public Long getId() {
@@ -33,14 +30,6 @@ public class TeamDTO implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public PersonDTO getBoss() {
-		return boss;
-	}
-
-	public void setBoss(PersonDTO boss) {
-		this.boss = boss;
 	}
 
 }
