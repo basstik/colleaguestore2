@@ -41,14 +41,20 @@ public class TeamView implements Serializable {
 	}
 
 	public void save() {
-		log.log(Level.FINEST, "save");
+		log.log(Level.FINE, "save");
 		System.out.println("Név: " + newTeam.getName());
 		teamFacade.create(newTeam);
 		// RequestContext.getCurrentInstance().update("foo:bar");
 	}
+	// <f:param name="teamId" value="#{team.id}" />
 
-	public void deleteUser() {
-		teamFacade.remove(1L);
+	public void deleteTeam(String id) {
+		log.log(Level.INFO, "save");
+		// HttpServletRequest request = (HttpServletRequest)
+		// FacesContext.getCurrentInstance().getExternalContext()
+		// .getRequest();
+		// String id = request.getParameter("teamId");
+		teamFacade.remove(Long.valueOf(id));
 		teams = teamFacade.getTeams();
 	}
 

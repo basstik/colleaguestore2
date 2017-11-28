@@ -44,6 +44,7 @@ public class TeamFacadeBean implements TeamFacade {
 
 	@Override
 	public void remove(Long id) {
+		logger.info("remove() TeamName: " + String.valueOf(id));
 		teamPM.remove(id);
 	}
 
