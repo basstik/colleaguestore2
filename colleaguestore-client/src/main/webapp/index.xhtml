@@ -6,6 +6,8 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
 	xmlns:p="http://primefaces.org/ui"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:richx="http://richfaces.org/richx"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
 <h:head>
@@ -27,11 +29,11 @@
 		</h:form>
 
 		<h:form id="team">
-			<p:dataTable var="team" value="#{teamView.teams}"
+			<p:dataTable var="team" value="#{teamView.datamodel}"
 				widgetVar="teamList" id="teamList">
 				<f:facet name="header">
-   			     List of Teams
-  		    </f:facet>
+   			   		  List of Teams
+  		  		</f:facet>
 				<p:column headerText="Id" id="teamId">
 					<h:outputText value="#{team.id}" />
 				</p:column>
@@ -39,9 +41,9 @@
 					<h:outputText value="#{team.name}" />
 				</p:column>
 				<p:column headerText="Delete" id="teamDelete">
-					<p:commandButton value="Delete" icon="ui-icon-trash" ajax="true"
-						id="teamDeleteBtn" action="#{teamView.deleteTeam(team.id)}"
-						update="myForm:team:teamList">
+					<p:commandButton value="Delete" icon="ui-icon-trash"
+						id="teamDeleteBtn" action="#{teamView.deleteTeam}" process="@this">
+						<f:setPropertyActionListener target="#{teamView.teamid}" value="#{team.id}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
