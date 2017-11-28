@@ -24,15 +24,30 @@ import hu.bme.soft.arch.colleaguestore.domain.enumeration.Position;
 		@NamedQuery(name = "Person.findAll", query = "SELECT a FROM Person a ORDER BY a.firstName, a.lastName") })
 public class Person extends BaseEntity {
 
+	// CREATE TABLE person (
+	// id INT NOT NULL,
+	// firstName VARCHAR(50),
+	// lastName VARCHAR(50),
+	// nationality VARCHAR(50),
+	// dateOfBirth DATE,
+	// position VARCHAR(50),
+	// ??? VARCHAR(50),
+	// );
+
+	// CREATE TABLE PERSON_TEAM (
+	// PERSON_ID INT NOT NULL,
+	// TEAM_ID INT NOT NULL
+	// );
+
 	private static final long serialVersionUID = 1L;
 
-	@Column(name = "first_name", nullable = false, length = 30)
+	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
-	@Column(name = "last_name", nullable = false, length = 30)
+	@Column(name = "last_name", nullable = false, length = 50)
 	private String lastName;
 
-	@Column(name = "nationality", nullable = true, length = 30)
+	@Column(name = "nationality", nullable = true, length = 50)
 	private String nationality;
 
 	@Temporal(TemporalType.DATE)
@@ -40,7 +55,7 @@ public class Person extends BaseEntity {
 	private Date dateOfBirth;
 
 	@Enumerated(EnumType.STRING)
-	@Column(name = "position")
+	@Column(name = "position", length = 50)
 	private Position position;
 
 	// @JoinTable(name = "person_skill", joinColumns = @JoinColumn(name = "ID"))

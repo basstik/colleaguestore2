@@ -25,6 +25,9 @@ public class TeamFacadeBean implements TeamFacade {
 	public List<TeamDTO> getTeams() {
 		List<TeamDTO> teamDTOs = new ArrayList<>();
 		List<Team> teamEntities = teamPM.getTeams();
+		logger.debug("Size team:" + teamEntities.size());
+		logger.error("Size team:" + teamEntities.size());
+		System.out.println("Size team:" + teamEntities.size());
 
 		for (Team team : teamEntities) {
 			teamDTOs.add(new TeamDTO(team.getId(), team.getName()));

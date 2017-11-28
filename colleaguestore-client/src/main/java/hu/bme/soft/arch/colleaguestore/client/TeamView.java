@@ -7,8 +7,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
+import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
 
 @ManagedBean(name = "teamView")
 @ViewScoped
@@ -19,6 +21,10 @@ public class TeamView implements Serializable {
 	// @ManagedProperty("#{teamService}")
 	// private TeamService service;
 
+	@SuppressWarnings("cdi-ambiguous-dependency")
+	@Inject
+	private TeamFacade teamFacade;
+
 	@PostConstruct
 	public void init() {
 		teams = new ArrayList<TeamDTO>();
@@ -26,7 +32,8 @@ public class TeamView implements Serializable {
 	}
 
 	public List<TeamDTO> getTeams() {
-		return teams;
+		// return teams;
+		return teamFacade.getTeams();
 	}
 
 	// public void setService(CarService service) {

@@ -5,14 +5,12 @@
 	version="2.1">
 	<persistence-unit name="PU" transaction-type="JTA">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
-		<jta-data-source>java:jboss/datasources/ExampleDS</jta-data-source>
+		<jta-data-source>java:jboss/datasources/ColleagueStoreDS</jta-data-source>
 		<properties>
-			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.hbm2ddl.auto" value="create-drop" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="false" />
-			<property name="hibernate.connection.driver_class" value="com.h2database.h2"/>
-			
 		</properties>
 	</persistence-unit>
 </persistence>

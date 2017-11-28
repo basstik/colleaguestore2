@@ -1,0 +1,5 @@
+CREATE TABLE team ( 
+		   id INT NOT NULL, 
+		   name VARCHAR(50)
+		);
+select * from team;

@@ -14,8 +14,6 @@ import javax.persistence.Table;
 @NamedQueries({ @NamedQuery(name = "Team.findAll", query = "SELECT a FROM Team a ORDER BY a.name") })
 public class Team extends BaseEntity {
 
-	private static final long serialVersionUID = 2L;
-
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
 
@@ -30,3 +28,10 @@ public class Team extends BaseEntity {
 		this.name = name;
 	}
 }
+
+// CREATE TABLE team (
+// id INT NOT NULL,
+// name VARCHAR(50)
+// );
+
+// INSERT INTO team (name) VALUES ('Krisztián');
