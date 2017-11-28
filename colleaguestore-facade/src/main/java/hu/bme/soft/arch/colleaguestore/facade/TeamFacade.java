@@ -11,4 +11,8 @@ public interface TeamFacade {
 
 	List<TeamDTO> getTeams();
 
+	void create(TeamDTO newTeam);
+
+	void remove(Long l);
+
 }

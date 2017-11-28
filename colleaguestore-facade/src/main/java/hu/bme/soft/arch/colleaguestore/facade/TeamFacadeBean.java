@@ -23,6 +23,7 @@ public class TeamFacadeBean implements TeamFacade {
 
 	@Override
 	public List<TeamDTO> getTeams() {
+		// logger.info("GetTeams()"); // interceptor kéne
 		List<TeamDTO> teamDTOs = new ArrayList<>();
 		List<Team> teamEntities = teamPM.getTeams();
 		logger.info("Size team:" + teamEntities.size());
@@ -30,8 +31,20 @@ public class TeamFacadeBean implements TeamFacade {
 		for (Team team : teamEntities) {
 			teamDTOs.add(new TeamDTO(team.getId(), team.getName()));
 		}
-
 		return teamDTOs;
+	}
+
+	@Override
+	public void create(TeamDTO newTeam) {
+		logger.info("create() TeamName: " + newTeam.getName());
+		Team team = new Team();
+		team.setName(newTeam.getName());
+		teamPM.persist(team);
+	}
+
+	@Override
+	public void remove(Long id) {
+		teamPM.remove(id);
 	}
 
 	// @Override

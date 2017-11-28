@@ -14,33 +14,56 @@
 
 <h:body>
 
-	<h:form>
-		<p:growl id="growl" life="2000" />
-		<p:commandButton value="Refresh" id="ajax" update="growl"
-			actionListener="#{teamView.refreshButtonAction}"
-			styleClass="ui-priority-primary" />
-		<p:commandButton value="New " type="button"
-			onclick="PF('newTeamDlg').show();" />
+	<h:form id="myForm">
+		<h:form id="bar">
+			<p:growl id="growl" life="2000" />
+			<p:commandButton value="Refresh" id="ajax" update="myForm:team:teamList"
+				ajax="true" actionListener="#{teamView.refreshButtonAction}"
+				styleClass="ui-priority-primary">
+			</p:commandButton>
+			<p:commandButton value="New " type="button"
+				onclick="PF('newTeamDlg').show();" />
+		</h:form>
+
+		<h:form id="team">
+			<p:dataTable var="team" value="#{teamView.teams}"
+				widgetVar="teamList" id="teamList" >
+				<f:facet name="header">
+   			     List of Teams
+  		    </f:facet>
+				<p:column headerText="Id" id="teamId">
+					<h:outputText value="#{team.id}" />
+				</p:column>
+				<p:column headerText="Name" id="teamName">
+					<h:outputText value="#{team.name}" />
+				</p:column>
+				<p:column headerText="Delete" id="teamDelete" >
+					<p:commandButton value="Delete" image="ui-icon-trash" id="teamDeleteBtn"
+						actionListener="#{teamView.deleteUser}" update="myForm:team:teamList">
+						<f:param name="team" value="#{team.id}" />
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</h:form>
 	</h:form>
+	<p:dialog header="New Team" id="newTeamDlg" widgetVar="newTeamDlg"
+		minHeight="40">
+		<h:form>
+			<p:growl id="growl" life="2000" />
+			<p:messages />
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<h:outputText value="Name: *" />
+				<p:inputText value="#{teamView.newTeam.name}" required="true"
+					label="Team name" />
+			</h:panelGrid>
 
-	<p:dialog header="New Team" widgetVar="newTeamDlg" minHeight="40">
-		<h:outputText value="Resistance to PrimeFaces is futile!" />
+			<p:commandButton value="Save" id="btnSave" ajax="true"
+				actionListener="#{teamView.save}"
+				oncomplete="PF('newTeamDlg').hide();" />
+			<p:commandButton value="Cancel" oncomplete="PF('newTeamDlg').hide();"
+				process="@this" />
+
+		</h:form>
 	</p:dialog>
-
-
-	<p:dataTable var="team" value="#{teamView.teams}">
-		<f:facet name="header">
-        List of Teams
-    </f:facet>
-
-		<p:column headerText="Id">
-			<h:outputText value="#{team.id}" />
-		</p:column>
-
-		<p:column headerText="Name">
-			<h:outputText value="#{team.name}" />
-		</p:column>
-
-	</p:dataTable>
 </h:body>
 </html>
