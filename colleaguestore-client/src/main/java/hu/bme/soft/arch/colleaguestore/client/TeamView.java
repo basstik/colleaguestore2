@@ -49,8 +49,9 @@ public class TeamView implements Serializable {
 	}
 
 	public void modify() {
-		TeamDTO rowData = datamodel.getRowData();
-		System.out.println("modify() Name: " + rowData.getName() + " id: " + rowData.getId());
+		TeamDTO rowData = editTeam;
+		System.out.println("modify() Name: " + rowData.getName());
+		System.out.println("id: " + rowData.getId());
 		teamFacade.modify(rowData);
 	}
 
@@ -109,6 +110,6 @@ public class TeamView implements Serializable {
 		TeamDTO[] stockArr = new TeamDTO[teams.size()];
 		stockArr = teams.toArray(stockArr);
 
-		datamodel = new LazyTeamDataModel(teams);
+		// datamodel = new LazyTeamDataModel(teams);
 	}
 }

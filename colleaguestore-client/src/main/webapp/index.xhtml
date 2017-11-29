@@ -50,36 +50,36 @@
 					</p:commandButton>
 				</p:column>
 				<f:facet name="footer">
-					<p:commandButton process="teamList" update=":myForm:teamEditing"
-						icon="ui-icon-search" value="Edit"
-						oncomplete="PF('editTeamDlg').show()">
+					<p:commandButton process="teamList" icon="ui-icon-search" update="myForm:team:teamEditing"
+						value="Edit" oncomplete="PF('editTeamDlg').show()">
 					</p:commandButton>
 				</f:facet>
 			</p:dataTable>
+
+
+			<p:dialog header="Edit Team" widgetVar="editTeamDlg" minHeight="40">
+				<p:outputPanel id="teamEditing" style="text-align:center;">
+					<p:growl id="growl" life="2000" />
+					<p:messages />
+					<h:panelGrid columns="2" columnClasses="label, value">
+						<h:outputText value="Id:" />
+						<h:outputText value="#{teamView.selectedTeam.id}" />
+
+						<h:outputText value="Name:" />
+						<p:inputText value="#{teamView.selectedTeam.name}"
+							label="Team name" />
+					</h:panelGrid>
+
+					<p:commandButton value="Save" id="btnSave" ajax="true"
+						update="teamEditing" actionListener="#{teamView.modify}"
+						oncomplete="PF('editTeamDlg').hide();" process="@this teamEditing">
+					</p:commandButton>
+					<p:commandButton value="Cancel"
+						oncomplete="PF('editTeamDlg').hide();" process="@this" />
+				</p:outputPanel>
+			</p:dialog>
 		</h:form>
-
-		<p:dialog header="Edit Team" widgetVar="editTeamDlg" minHeight="40">
-			<p:outputPanel id="teamEditing" style="text-align:center;">
-				<p:growl id="growl" life="2000" />
-				<p:messages />
-				<h:panelGrid columns="2"
-					rendered="#{not empty teamView.selectedTeam}"
-					columnClasses="label, value">
-					<h:outputText value="Name:" />
-					<p:inputText value="#{teamView.selectedTeam.name}"
-						label="Team name" />
-				</h:panelGrid>
-
-				<p:commandButton value="Save" id="btnSave" ajax="true"
-					actionListener="#{teamView.modify}"
-					oncomplete="PF('editTeamDlg').hide();" />
-				<p:commandButton value="Cancel"
-					oncomplete="PF('editTeamDlg').hide();" process="@this" />
-			</p:outputPanel>
-		</p:dialog>
-
 	</h:form>
-
 
 
 
