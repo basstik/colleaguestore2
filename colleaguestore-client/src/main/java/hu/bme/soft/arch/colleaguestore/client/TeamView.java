@@ -4,13 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.model.DataModel;
-import javax.faces.model.ListDataModel;
 import javax.inject.Inject;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
@@ -23,10 +20,13 @@ public class TeamView implements Serializable {
 
 	private TeamDTO newTeam = new TeamDTO();
 
-	// @ManagedProperty(value = "#{teamid}")
-	private Long teamid; // +setter
+	private TeamDTO editTeam = new TeamDTO();
 
-	private DataModel<TeamDTO> datamodel;
+	private TeamDTO selectedTeam;
+
+	private Long teamid;
+
+	private LazyTeamDataModel datamodel;
 
 	@SuppressWarnings("cdi-ambiguous-dependency")
 	@Inject
@@ -34,43 +34,34 @@ public class TeamView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		teams = teamFacade.getTeams();
-		datamodel = new ListDataModel<TeamDTO>(teams);
+		getTeamsFromServer();
 
 		// teams.add(new TeamDTO(1L, "SzuperCsapat"));
 	}
 
 	public void refreshButtonAction(ActionEvent actionEvent) {
-		// addMessage("Refresh!");
-		teams = teamFacade.getTeams();
-		// RequestContext.getCurrentInstance().update(":teamList");
+		getTeamsFromServer();
 	}
 
 	public void save() {
 		System.out.println("Név: " + newTeam.getName());
 		teamFacade.create(newTeam);
-		// RequestContext.getCurrentInstance().update("foo:bar");
 	}
 
-	// update="myForm:team:teamList"
-	// <f:param name="teamId" value="#{team.id}" />
-	// <f:setPropertyActionListener target="#{teamView.teamid}" value="#{team.id}"
-	// />
+	public void modify() {
+		TeamDTO rowData = datamodel.getRowData();
+		System.out.println("modify() Name: " + rowData.getName() + " id: " + rowData.getId());
+		teamFacade.modify(rowData);
+	}
+
 	public void deleteTeam() {
-		// HttpServletRequest request = (HttpServletRequest)
-		// FacesContext.getCurrentInstance().getExternalContext()
-		// .getRequest();
-		// String id = request.getParameter("teamId");
-		// Map<String, String> parameterMap =
-		// FacesContext.getCurrentInstance().getExternalContext()
-		// .getRequestParameterMap();
-		// String id = parameterMap.get("teamId");
-
-		// teamFacade.remove(Long.valueOf(id));
-		// teamFacade.remove(2L);
 		teamFacade.remove(teamid);
-		teams = teamFacade.getTeams();
 	}
+
+	// public void printTeam() {
+	// System.out.println("Name: " + editTeam.getName() + " id: " +
+	// editTeam.getId());
+	// }
 
 	public List<TeamDTO> getTeams() {
 		return teams;
@@ -80,12 +71,16 @@ public class TeamView implements Serializable {
 		return newTeam;
 	}
 
-	public DataModel<TeamDTO> getDatamodel() {
-		return datamodel;
+	public TeamDTO getSelectedTeam() {
+		return selectedTeam;
 	}
 
-	public void setDatamodel(DataModel<TeamDTO> datamodel) {
-		this.datamodel = datamodel;
+	public void setSelectedTeam(TeamDTO selectedTeam) {
+		this.selectedTeam = selectedTeam;
+	}
+
+	public DataModel<TeamDTO> getDatamodel() {
+		return datamodel;
 	}
 
 	public void setNewTeam(TeamDTO newTeam) {
@@ -100,12 +95,20 @@ public class TeamView implements Serializable {
 		return teamid;
 	}
 
-	public void setTeams(List<TeamDTO> teams) {
-		this.teams = teams;
+	public TeamDTO getEditTeam() {
+		return editTeam;
 	}
 
-	private void addMessage(String summary) {
-		FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
-		FacesContext.getCurrentInstance().addMessage(null, message);
+	public void setEditTeam(TeamDTO editTeam) {
+		this.editTeam = editTeam;
+	}
+
+	private void getTeamsFromServer() {
+		teams = teamFacade.getTeams();
+
+		TeamDTO[] stockArr = new TeamDTO[teams.size()];
+		stockArr = teams.toArray(stockArr);
+
+		datamodel = new LazyTeamDataModel(teams);
 	}
 }

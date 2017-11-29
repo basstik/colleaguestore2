@@ -15,4 +15,6 @@ public interface TeamFacade {
 
 	void remove(Long l);
 
+	void modify(TeamDTO editTeam);
+
 }

@@ -48,6 +48,13 @@ public class TeamFacadeBean implements TeamFacade {
 		teamPM.remove(id);
 	}
 
+	@Override
+	public void modify(TeamDTO editTeam) {
+		logger.info("modify() TeamName: " + editTeam.getName() + " id: " + editTeam.getId());
+		Team find = teamPM.find(editTeam.getId());
+		find.setName(editTeam.getName());
+	}
+
 	// @Override
 	// public PagingTeamDTO getTeams(TeamFilterDTO teamFilterDTO) {
 	// List<TeamDTO> teamDto = new ArrayList<>();
