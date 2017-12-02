@@ -31,13 +31,16 @@
 
 			<p:dataTable var="team" value="#{teamView.teams}"
 				widgetVar="teamList" id="teamList" editable="true"
-				style="margin-bottom:20px">
+				style="margin-bottom:20px" selectionMode="single"
+				selection="#{teamView.selectedTeam}" rowKey="#{team.id}">
 				<f:facet name="header">Teams</f:facet>
 
 				<p:ajax event="rowEdit" listener="#{teamView.onRowEdit}"
 					update=":myForm:team:msgs" />
 				<p:ajax event="rowEditCancel" listener="#{teamView.onRowCancel}"
 					update=":myForm:team:msgs" />
+				<p:ajax event="rowSelect" listener="#{teamView.onRowSelect}"
+					update=":myForm:team:msgs :myForm:pickListPerson" />
 
 				<p:column headerText="Id" id="teamId">
 					<h:outputText value="#{team.id}" />
@@ -67,6 +70,10 @@
 				</p:column>
 			</p:dataTable>
 		</h:form>
+
+		<p:pickList id="pickListPerson" value="#{pickListView.persons}" var="persons"
+			itemLabel="#{persons}" itemValue="#{persons}" />
+
 	</h:form>
 
 

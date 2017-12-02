@@ -8,6 +8,7 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
+import hu.bme.soft.arch.colleaguestore.business.PersonServiceBean;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PagingPersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonFilterDTO;
@@ -21,6 +22,9 @@ public class PersonFacadeBean implements PersonFacade {
 	PersonPersistenceManager personPM;
 
 	@Inject
+	PersonServiceBean personService;
+
+	@Inject
 	Logger logger;
 
 	private List<Long> list = new ArrayList<>();
@@ -31,11 +35,7 @@ public class PersonFacadeBean implements PersonFacade {
 
 	@Override
 	public List<PersonDTO> getPersons() {
-		List<PersonDTO> persons = new ArrayList<>();
-		for (Person person : personPM.getPersons()) {
-			persons.add(new PersonDTO(person.getId(), person.getFirstName(), person.getLastName(),
-					person.getNationality(), person.getDateOfBirth()));
-		}
+		List<PersonDTO> persons = personService.convertList(personPM.getPersons());
 		return persons;
 	}
 

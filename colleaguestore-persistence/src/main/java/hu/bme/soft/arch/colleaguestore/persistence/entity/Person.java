@@ -7,8 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -64,8 +63,7 @@ public class Person extends BaseEntity {
 	// @Column(name = "skill", length = 20)
 	// private Set<LanguageSkill> skill;
 
-	@ManyToMany
-	@JoinTable(name = "PERSON_TEAM", joinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"), inverseJoinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"))
+	@ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
 	private List<Team> teams;
 
 	public Person() {
@@ -126,11 +124,11 @@ public class Person extends BaseEntity {
 		this.position = position;
 	}
 
-	// public Collection<LanguageSkill> getSkill() {
-	// return skill;
-	// }
-	//
-	// public void setSkill(Set<LanguageSkill> skill) {
-	// this.skill = skill;
-	// }
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
 }

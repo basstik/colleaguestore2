@@ -4,6 +4,9 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -17,8 +20,17 @@ public class Team extends BaseEntity {
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
 
-	@ManyToMany(mappedBy = "teams")
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TEAM_PERSON",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
 	private List<Person> persons;
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name = "TEAM_PROJECT",
+			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"),
+			inverseJoinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"))
+	private List<Project> projects;
 
 	public String getName() {
 		return name;
@@ -27,6 +39,23 @@ public class Team extends BaseEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public List<Person> getPersons() {
+		return persons;
+	}
+
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public List<Project> getProjects() {
+		return projects;
+	}
+
+	public void setProjects(List<Project> projects) {
+		this.projects = projects;
+	}
+
 }
 
 // CREATE TABLE team (

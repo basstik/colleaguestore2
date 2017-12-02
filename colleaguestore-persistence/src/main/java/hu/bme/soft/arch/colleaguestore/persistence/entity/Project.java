@@ -1,7 +1,11 @@
 package hu.bme.soft.arch.colleaguestore.persistence.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -11,10 +15,11 @@ import javax.persistence.Table;
 @NamedQueries({ @NamedQuery(name = "Project.findAll", query = "SELECT a FROM Project a ORDER BY a.name") })
 public class Project extends BaseEntity {
 
-	private static final long serialVersionUID = 1432L;
-
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
+
+	@ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
+	private List<Team> teams;
 
 	public String getName() {
 		return name;
@@ -24,4 +29,11 @@ public class Project extends BaseEntity {
 		this.name = name;
 	}
 
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
 }

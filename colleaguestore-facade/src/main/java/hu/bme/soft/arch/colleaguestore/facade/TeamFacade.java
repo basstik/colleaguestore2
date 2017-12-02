@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 
 @Local
@@ -17,4 +18,5 @@ public interface TeamFacade {
 
 	void modify(TeamDTO editTeam);
 
+	List<PersonDTO> setPersonsByTeamId(Long teamId);
 }
