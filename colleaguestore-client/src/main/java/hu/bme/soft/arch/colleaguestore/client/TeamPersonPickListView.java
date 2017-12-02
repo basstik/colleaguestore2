@@ -41,8 +41,8 @@ public class TeamPersonPickListView {
 
 	public void setPersonsByTeamId(Long teamId) {
 		selectedTeamId = teamId;
-		// List<Person> personsByTeam = teamFacade.setPersonsByTeamId(teamId);
-		// List<Person> allPersons = personFacade.getPersons();
+		List<Person> personsByTeam = teamFacade.getPersonsByTeamId(teamId);
+		List<Person> allPersons = personFacade.getPersons();
 
 		// List<String> personsSource = new ArrayList<String>();
 		// List<String> personsSource = new ArrayList<String>();
@@ -50,7 +50,8 @@ public class TeamPersonPickListView {
 		// personsSource.add(personDTO.getFirstName());
 		// }
 
-		List<Person> personsSource = new ArrayList<Person>();
+		List<Person> personsSource = allPersons;
+		// List<Person> personsSource = new ArrayList<Person>();
 		List<Person> personsTarget = new ArrayList<Person>();
 
 		persons = new DualListModel<Person>(personsSource, personsTarget);

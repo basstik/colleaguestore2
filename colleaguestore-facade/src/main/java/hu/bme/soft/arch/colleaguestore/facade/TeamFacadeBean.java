@@ -61,7 +61,7 @@ public class TeamFacadeBean implements TeamFacade {
 	}
 
 	@Override
-	public List<Person> setPersonsByTeamId(Long teamId) {
+	public List<Person> getPersonsByTeamId(Long teamId) {
 		return teamPM.find(teamId).getPersons();
 	}
 

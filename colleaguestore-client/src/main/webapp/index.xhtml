@@ -73,7 +73,7 @@
 
 		<p:growl id="msgs" showDetail="true" />
 		<p:pickList id="pickListTeamPerson" value="#{teamPersonPickListView.persons}"
-			var="person" itemLabel="#{person.name}" itemValue="#{person}" />
+			var="person" itemLabel="#{person.firstName}" itemValue="#{person}" />
 		<p:commandButton id="personSubmit" value="Submit" ajax="true"
 			action="#{teamPersonPickListView.savePersons()}" style="margin-top:5px" process="@this" >
 		</p:commandButton>

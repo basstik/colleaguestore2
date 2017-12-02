@@ -11,6 +11,9 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "team")
 @NamedQueries({ @NamedQuery(name = "Team.findAll", query = "SELECT a FROM Team a ORDER BY a.name") })
@@ -19,13 +22,15 @@ public class Team extends BaseEntity {
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
 
-	@ManyToMany()
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
 	@JoinTable(name = "TEAM_PERSON",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"),
 			inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
 	private List<Person> persons;
 
-	@ManyToMany()
+	@LazyCollection(LazyCollectionOption.FALSE)
+	@ManyToMany
 	@JoinTable(name = "TEAM_PROJECT",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"),
 			inverseJoinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"))

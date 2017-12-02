@@ -18,7 +18,7 @@ public interface TeamFacade {
 
 	void modify(TeamDTO editTeam);
 
-	List<Person> setPersonsByTeamId(Long teamId);
+	List<Person> getPersonsByTeamId(Long teamId);
 
 	void updatePersonList(Long teamId, List<Person> persons);
 }
