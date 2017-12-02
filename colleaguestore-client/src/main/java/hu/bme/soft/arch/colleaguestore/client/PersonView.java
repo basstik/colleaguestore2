@@ -13,19 +13,18 @@ import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 
-import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
 @ManagedBean(name = "personView")
 @RequestScoped
 public class PersonView implements Serializable {
-	private List<PersonDTO> persons;
 
-	private PersonDTO newPerson = new PersonDTO();
+	private List<Person> persons;
 
-	private PersonDTO editPerson = new PersonDTO();
+	private Person newPerson = new Person();
 
-	private PersonDTO selectedPerson;
+	private Person selectedPerson;
 
 	private Long personid;
 
@@ -51,51 +50,47 @@ public class PersonView implements Serializable {
 	}
 
 	public void onRowEdit(RowEditEvent event) {
-		PersonDTO personDTO = ((PersonDTO) event.getObject());
-		FacesMessage msg = new FacesMessage("Person edited id" + personDTO.getId());
+		Person person = ((Person) event.getObject());
+		FacesMessage msg = new FacesMessage("Person edited id" + person.getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		System.out.println("modify() Name: " + personDTO.getFirstName());
-		personFacade.update(personDTO);
+		System.out.println("modify() Name: " + person.getFirstName());
+		personFacade.update(person);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Person edit cancelled id" + ((PersonDTO) event.getObject()).getId());
+		FacesMessage msg = new FacesMessage("Person edit cancelled id" + ((Person) event.getObject()).getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
-	public List<PersonDTO> getPersons() {
+	public List<Person> getPersons() {
 		return persons;
 	}
 
-	public PersonDTO getNewPerson() {
+	public void setPersons(List<Person> persons) {
+		this.persons = persons;
+	}
+
+	public Person getNewPerson() {
 		return newPerson;
 	}
 
-	public PersonDTO getSelectedPerson() {
-		return selectedPerson;
-	}
-
-	public void setSelectedPerson(PersonDTO selectedPerson) {
-		this.selectedPerson = selectedPerson;
-	}
-
-	public void setNewPerson(PersonDTO newPerson) {
+	public void setNewPerson(Person newPerson) {
 		this.newPerson = newPerson;
 	}
 
-	public void setPersonid(Long personid) {
-		this.personid = personid;
+	public Person getSelectedPerson() {
+		return selectedPerson;
+	}
+
+	public void setSelectedPerson(Person selectedPerson) {
+		this.selectedPerson = selectedPerson;
 	}
 
 	public Long getPersonid() {
 		return personid;
 	}
 
-	public PersonDTO getEditPerson() {
-		return editPerson;
-	}
-
-	public void setEditPerson(PersonDTO editPerson) {
-		this.editPerson = editPerson;
+	public void setPersonid(Long personid) {
+		this.personid = personid;
 	}
 }

@@ -9,9 +9,9 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 
 import hu.bme.soft.arch.colleaguestore.business.PersonServiceBean;
-import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.persistence.TeamPersistenceManager;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 
 @Stateless
@@ -61,12 +61,12 @@ public class TeamFacadeBean implements TeamFacade {
 	}
 
 	@Override
-	public List<PersonDTO> setPersonsByTeamId(Long teamId) {
-		return personService.convertList(teamPM.find(teamId).getPersons());
+	public List<Person> setPersonsByTeamId(Long teamId) {
+		return teamPM.find(teamId).getPersons();
 	}
 
 	@Override
-	public void updatePersonList(Long teamId, List<PersonDTO> persons) {
+	public void updatePersonList(Long teamId, List<Person> persons) {
 		// teamPM.find(teamId).setPersons(persons);
 	}
 

@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -63,8 +62,13 @@ public class Person extends BaseEntity {
 	// @Column(name = "skill", length = 20)
 	// private Set<LanguageSkill> skill;
 
-	@ManyToMany(mappedBy = "persons", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "persons")
 	private List<Team> teams;
+
+	@Override
+	public String toString() {
+		return firstName;
+	}
 
 	public Person() {
 	}

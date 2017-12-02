@@ -34,9 +34,8 @@ public class PersonFacadeBean implements PersonFacade {
 	}
 
 	@Override
-	public List<PersonDTO> getPersons() {
-		List<PersonDTO> persons = personService.convertList(personPM.getPersons());
-		return persons;
+	public List<Person> getPersons() {
+		return personPM.getPersons();
 	}
 
 	@Override
@@ -54,13 +53,12 @@ public class PersonFacadeBean implements PersonFacade {
 	}
 
 	@Override
-	public void create(PersonDTO personDto) {
-		personPM.persist(new Person(personDto.getFirstName(), personDto.getLastName(), personDto.getNationality(),
-				personDto.getDateOfBirth(), personDto.getPosition()));
+	public void create(Person personDto) {
+		personPM.persist(personDto);
 	}
 
 	@Override
-	public void update(PersonDTO person) {
+	public void update(Person person) {
 		Person a = personPM.find(person.getId());
 		a.setFirstName(person.getFirstName());
 		a.setLastName(person.getLastName());

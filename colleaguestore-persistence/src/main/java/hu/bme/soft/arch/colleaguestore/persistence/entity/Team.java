@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -20,13 +19,13 @@ public class Team extends BaseEntity {
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany()
 	@JoinTable(name = "TEAM_PERSON",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"),
 			inverseJoinColumns = @JoinColumn(name = "PERSON_ID", referencedColumnName = "ID"))
 	private List<Person> persons;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany()
 	@JoinTable(name = "TEAM_PROJECT",
 			joinColumns = @JoinColumn(name = "TEAM_ID", referencedColumnName = "ID"),
 			inverseJoinColumns = @JoinColumn(name = "PROJECT_ID", referencedColumnName = "ID"))

@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -18,7 +17,7 @@ public class Project extends BaseEntity {
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
 
-	@ManyToMany(mappedBy = "projects", fetch = FetchType.LAZY)
+	@ManyToMany(mappedBy = "projects")
 	private List<Team> teams;
 
 	public String getName() {

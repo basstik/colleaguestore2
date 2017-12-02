@@ -14,15 +14,13 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.event.UnselectEvent;
 import org.primefaces.model.DualListModel;
 
-import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
 @SessionScoped
 @ManagedBean(name = "teamPersonPickListView")
 public class TeamPersonPickListView {
-
-	private DualListModel<String> persons;
 
 	@SuppressWarnings("cdi-ambiguous-dependency")
 	@Inject
@@ -32,17 +30,36 @@ public class TeamPersonPickListView {
 	@Inject
 	private PersonFacade personFacade;
 
+	private DualListModel<Person> persons;
+
+	Long selectedTeamId;
+
 	@PostConstruct
 	public void init() {
-		persons = new DualListModel<String>();
+		persons = new DualListModel<Person>();
 	}
 
-	public DualListModel<String> getPersons() {
-		return persons;
+	public void setPersonsByTeamId(Long teamId) {
+		selectedTeamId = teamId;
+		// List<Person> personsByTeam = teamFacade.setPersonsByTeamId(teamId);
+		// List<Person> allPersons = personFacade.getPersons();
+
+		// List<String> personsSource = new ArrayList<String>();
+		// List<String> personsSource = new ArrayList<String>();
+		// for (PersonDTO personDTO : allPersons) {
+		// personsSource.add(personDTO.getFirstName());
+		// }
+
+		List<Person> personsSource = new ArrayList<Person>();
+		List<Person> personsTarget = new ArrayList<Person>();
+
+		persons = new DualListModel<Person>(personsSource, personsTarget);
 	}
 
-	public void setPersons(DualListModel<String> persons) {
-		this.persons = persons;
+	public void savePersons() {
+		System.out.println("Fent: " + persons.getSource());
+		System.out.println("Lend: " + persons.getTarget());
+		// teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
 	}
 
 	public void onSelect(SelectEvent event) {
@@ -62,42 +79,19 @@ public class TeamPersonPickListView {
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
 	}
 
-	Long selectedTeamId;
-
-	public void setPersonsByTeamId(Long teamId) {
-		selectedTeamId = teamId;
-		List<PersonDTO> personsByTeam = teamFacade.setPersonsByTeamId(teamId);
-		List<PersonDTO> allPersons = personFacade.getPersons();
-
-		List<String> personsSource = new ArrayList<String>();
-		for (PersonDTO personDTO : allPersons) {
-			personsSource.add(personDTO.getFirstName());
-		}
-
-		List<String> personsTarget = new ArrayList<String>();
-
-		persons = new DualListModel<String>(personsSource, personsTarget);
+	public DualListModel<Person> getPersons() {
+		return persons;
 	}
 
-	public List<String> personssource = new ArrayList<String>();
-
-	public void savePersons() {
-		System.out.println("Fent: " + persons.getSource());
-		System.out.println("Lend: " + persons.getTarget());
-		// teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
+	public void setPersons(DualListModel<Person> persons) {
+		this.persons = persons;
 	}
 
-	public List<String> getPersonssource() {
-		return personssource;
+	public Long getSelectedTeamId() {
+		return selectedTeamId;
 	}
 
-	public void setPersonssource(List<String> personssource) {
-		this.personssource = personssource;
+	public void setSelectedTeamId(Long selectedTeamId) {
+		this.selectedTeamId = selectedTeamId;
 	}
-
-	// public void savePersons() {
-	// System.out.println("Fent: " + persons.getSource());
-	// System.out.println("Lend: " + persons.getTarget());
-	// }
-
 }

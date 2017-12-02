@@ -40,7 +40,7 @@
 				<p:ajax event="rowEditCancel" listener="#{teamView.onRowCancel}"
 					update=":myForm:team:msgs" />
 				<p:ajax event="rowSelect" listener="#{teamView.onRowSelect}"
-					update=":myForm:team:msgs :myForm:pickListPerson" />
+					update=":myForm:team:msgs :myForm:pickListTeamPerson" />
 
 				<p:column headerText="Id" id="teamId">
 					<h:outputText value="#{team.id}" />
@@ -72,8 +72,8 @@
 		</h:form>
 
 		<p:growl id="msgs" showDetail="true" />
-		<p:pickList id="pickListPerson" value="#{teamPersonPickListView.persons}"
-			var="persons" itemLabel="#{persons}" itemValue="#{persons}" />
+		<p:pickList id="pickListTeamPerson" value="#{teamPersonPickListView.persons}"
+			var="person" itemLabel="#{person.name}" itemValue="#{person}" />
 		<p:commandButton id="personSubmit" value="Submit" ajax="true"
 			action="#{teamPersonPickListView.savePersons()}" style="margin-top:5px" process="@this" >
 		</p:commandButton>
