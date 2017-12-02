@@ -40,7 +40,7 @@
 				<p:ajax event="rowEditCancel" listener="#{teamView.onRowCancel}"
 					update=":myForm:team:msgs" />
 				<p:ajax event="rowSelect" listener="#{teamView.onRowSelect}"
-					update=":myForm:team:msgs :myForm:pickListTeamPerson" />
+					update=":myForm:team:msgs :myForm:b:pickListTeamPerson" />
 
 				<p:column headerText="Id" id="teamId">
 					<h:outputText value="#{team.id}" />
@@ -71,12 +71,32 @@
 			</p:dataTable>
 		</h:form>
 
-		<p:growl id="msgs" showDetail="true" />
-		<p:pickList id="pickListTeamPerson" value="#{teamPersonPickListView.persons}"
-			var="person" itemLabel="#{person.firstName}" itemValue="#{person}" />
-		<p:commandButton id="personSubmit" value="Submit" ajax="true"
-			action="#{teamPersonPickListView.savePersons()}" style="margin-top:5px" process="@this" >
-		</p:commandButton>
+		<h:form id="b">
+			<p:growl id="msgs" showDetail="true" />
+			<p:pickList id="pickListTeamPerson"
+				value="#{teamPersonPickListView.persons}" var="person"
+				itemLabel="#{person.firstName}" itemValue="#{person}" converter="primeFacesPickListConverter">
+				<f:facet name="sourceCaption">Persons</f:facet>
+				<f:facet name="targetCaption">Persons in team</f:facet>
+			</p:pickList>
+			<p:commandButton id="personSubmit" value="Submit" ajax="true"
+				action="#{teamPersonPickListView.savePersons()}"
+				style="margin-top:5px" process="myForm:b @this">
+			</p:commandButton>
+		</h:form>
+
+
+		<h:form id="a">
+			<p:pickList id="pickListTeamProject"
+				value="#{teamProjectPickListView.projects}" var="projs"
+				itemLabel="#{projs}" itemValue="#{projs}" />
+			<p:commandButton id="projectSubmit" value="Submit" ajax="true"
+				action="#{teamProjectPickListView.saveProjects()}"
+				style="margin-top:5px" process="myForm:a @this">
+			</p:commandButton>
+		</h:form>
+
+
 
 	</h:form>
 

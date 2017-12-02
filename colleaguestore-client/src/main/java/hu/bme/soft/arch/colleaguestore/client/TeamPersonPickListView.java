@@ -1,12 +1,12 @@
 package hu.bme.soft.arch.colleaguestore.client;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -18,7 +18,7 @@ import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
-@SessionScoped
+@ApplicationScoped
 @ManagedBean(name = "teamPersonPickListView")
 public class TeamPersonPickListView {
 
@@ -40,27 +40,23 @@ public class TeamPersonPickListView {
 	}
 
 	public void setPersonsByTeamId(Long teamId) {
+		System.out.println("setPersonsByTeamId");
 		selectedTeamId = teamId;
-		List<Person> personsByTeam = teamFacade.getPersonsByTeamId(teamId);
-		List<Person> allPersons = personFacade.getPersons();
+		HashSet<Person> personsByTeam = new HashSet<Person>(teamFacade.getPersonsByTeamId(teamId));
+		HashSet<Person> allPersons = new HashSet<Person>(personFacade.getPersons());
 
-		// List<String> personsSource = new ArrayList<String>();
-		// List<String> personsSource = new ArrayList<String>();
-		// for (PersonDTO personDTO : allPersons) {
-		// personsSource.add(personDTO.getFirstName());
-		// }
-
-		List<Person> personsSource = allPersons;
-		// List<Person> personsSource = new ArrayList<Person>();
-		List<Person> personsTarget = new ArrayList<Person>();
-
-		persons = new DualListModel<Person>(personsSource, personsTarget);
+		persons = new DualListModel<Person>(new ArrayList<Person>(allPersons), new ArrayList<Person>(personsByTeam));
 	}
 
 	public void savePersons() {
-		System.out.println("Fent: " + persons.getSource());
-		System.out.println("Lend: " + persons.getTarget());
-		// teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
+		if (!persons.getSource().isEmpty()) {
+			System.out.println("Fent: " + persons.getSource().get(0).getFirstName());
+		}
+		if (!persons.getTarget().isEmpty()) {
+			// System.out.println("Lend: " + persons.getTarget().get(0).getFirstName());
+			System.out.println("Lend: " + persons.getTarget());
+		}
+		teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
 	}
 
 	public void onSelect(SelectEvent event) {

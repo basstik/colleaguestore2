@@ -5,9 +5,9 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
@@ -19,7 +19,7 @@ import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
 
 @ManagedBean(name = "teamView")
-@SessionScoped
+@ApplicationScoped
 public class TeamView implements Serializable {
 	private List<TeamDTO> teams;
 

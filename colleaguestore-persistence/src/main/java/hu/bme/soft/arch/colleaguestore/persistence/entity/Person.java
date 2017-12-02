@@ -88,6 +88,16 @@ public class Person extends BaseEntity {
 		this.dateOfBirth = dateOfBirth;
 	}
 
+	@Override
+	public Long getId() {
+		return super.getId();
+	}
+
+	@Override
+	public void setId(Long id) {
+		super.setId(id);
+	}
+
 	public String getFirstName() {
 		return firstName;
 	}

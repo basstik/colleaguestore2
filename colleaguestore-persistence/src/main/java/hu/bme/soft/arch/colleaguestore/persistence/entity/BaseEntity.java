@@ -17,11 +17,11 @@ public abstract class BaseEntity implements Serializable {
 	@Column(name = "ID", precision = 20, scale = 0)
 	private Long id;
 
-	public final Long getId() {
+	public Long getId() {
 		return this.id;
 	}
 
-	public final void setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 }
