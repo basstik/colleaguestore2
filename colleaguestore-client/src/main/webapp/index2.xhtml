@@ -59,7 +59,7 @@
 							<h:outputText value="#{person.lastName}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText id="modelInput" value="#{person.lastName}"
+							<p:inputText id="modelInput2" value="#{person.lastName}"
 								style="width:100%" />
 						</f:facet>
 					</p:cellEditor>
@@ -67,7 +67,8 @@
 				<p:column headerText="Delete" id="personDelete"
 					style="width:120px;text-align: center">
 					<p:commandButton value="Delete" icon="ui-icon-trash"
-						id="personDeleteBtn" action="#{personView.deletePerson}" process="@this">
+						id="personDeleteBtn" action="#{personView.deletePerson}"
+						process="@this">
 						<f:setPropertyActionListener value="#{person.id}"
 							target="#{personView.personid}" />
 					</p:commandButton>
@@ -82,22 +83,27 @@
 
 
 
-	<p:dialog header="New Person" id="newPersonDlg" widgetVar="newPersonDlg"
-		minHeight="40">
+	<p:dialog header="New Person" id="newPersonDlg"
+		widgetVar="newPersonDlg" minHeight="40">
 		<h:form>
 			<p:growl id="growl" life="2000" />
 			<p:messages />
 			<h:panelGrid columns="2" columnClasses="label, value">
 				<h:outputText value="FirstName: *" />
-				<p:inputText value="#{personView.newPerson.firstName}" required="true"
-					label="Person first name" />
+				<p:inputText value="#{personView.newPerson.firstName}"
+					required="true" label="Person first name" />
+			</h:panelGrid>
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<h:outputText value="LastName: *" />
+				<p:inputText value="#{personView.newPerson.lastName}"
+					required="true" label="Person last name" />
 			</h:panelGrid>
 
 			<p:commandButton value="Save" id="btnSave" ajax="true"
 				actionListener="#{personView.save}"
 				oncomplete="PF('newPersonDlg').hide();" />
-			<p:commandButton value="Cancel" oncomplete="PF('newPersonDlg').hide();"
-				process="@this" />
+			<p:commandButton value="Cancel"
+				oncomplete="PF('newPersonDlg').hide();" process="@this" />
 		</h:form>
 	</p:dialog>
 
