@@ -66,7 +66,7 @@ public class TeamFacadeBean implements TeamFacade {
 	}
 
 	@Override
-	public void updatePersonList(Long teamId, List<Per> persons) {
+	public void updatePersonList(Long teamId, List<PersonDTO> persons) {
 		// teamPM.find(teamId).setPersons(persons);
 	}
 

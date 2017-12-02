@@ -19,8 +19,8 @@ import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
 
 @SessionScoped
-@ManagedBean(name = "pickListView")
-public class PickListView {
+@ManagedBean(name = "teamPersonPickListView")
+public class TeamPersonPickListView {
 
 	private DualListModel<String> persons;
 
@@ -84,7 +84,7 @@ public class PickListView {
 	public void savePersons() {
 		System.out.println("Fent: " + persons.getSource());
 		System.out.println("Lend: " + persons.getTarget());
-		teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
+		// teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
 	}
 
 	public List<String> getPersonssource() {

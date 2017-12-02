@@ -6,10 +6,9 @@ import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
 
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Project;
-import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 
 @Stateless
-public class ProjectPersistenceManager extends BasePersistenceManager<Team> {
+public class ProjectPersistenceManager extends BasePersistenceManager<Project> {
 
 	public List<Project> getProjects() {
 		TypedQuery<Project> query = getEntityManager().createNamedQuery("Project.findAll", Project.class);
@@ -17,7 +16,7 @@ public class ProjectPersistenceManager extends BasePersistenceManager<Team> {
 	}
 
 	@Override
-	public Class<Team> getEntityClass() {
-		return Team.class;
+	public Class<Project> getEntityClass() {
+		return Project.class;
 	}
 }

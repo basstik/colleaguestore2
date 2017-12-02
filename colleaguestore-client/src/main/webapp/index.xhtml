@@ -72,12 +72,11 @@
 		</h:form>
 
 		<p:growl id="msgs" showDetail="true" />
-		<p:pickList id="pickListPerson" value="#{pickListView.persons}"
+		<p:pickList id="pickListPerson" value="#{teamPersonPickListView.persons}"
 			var="persons" itemLabel="#{persons}" itemValue="#{persons}" />
 		<p:commandButton id="personSubmit" value="Submit" ajax="true"
-			action="#{pickListView.savePersons()}" style="margin-top:5px" process="@this" >
+			action="#{teamPersonPickListView.savePersons()}" style="margin-top:5px" process="@this" >
 		</p:commandButton>
-
 
 	</h:form>
 

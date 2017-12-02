@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Projects Page</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="myForm">
+		<h:form id="bar">
+			<p:growl id="growl" life="2000" />
+			<p:commandButton value="Refresh" id="ajax"
+				update="myForm:project:projectList" ajax="true"
+				actionListener="#{projectView.refreshButtonAction}"
+				styleClass="ui-priority-primary">
+			</p:commandButton>
+			<p:commandButton value="New " type="button"
+				onclick="PF('newProjectDlg').show();" />
+		</h:form>
+
+		<h:form id="project">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable var="project" value="#{projectView.projects}"
+				widgetVar="projectList" id="projectList" editable="true"
+				style="margin-bottom:20px">
+				<f:facet name="header">Projects</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{projectView.onRowEdit}"
+					update=":myForm:project:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{projectView.onRowCancel}"
+					update=":myForm:project:msgs" />
+
+				<p:column headerText="Id" id="projectId">
+					<h:outputText value="#{project.id}" />
+				</p:column>
+				<p:column headerText="Name" id="projectName">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{project.name}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{project.name}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Delete" id="projectDelete"
+					style="width:120px;text-align: center">
+					<p:commandButton value="Delete" icon="ui-icon-trash"
+						id="projectDeleteBtn" action="#{projectView.deleteProject}"
+						process="@this">
+						<f:setPropertyActionListener value="#{project.id}"
+							target="#{projectView.projectid}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:32px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</h:form>
+
+	<p:dialog header="New Project" id="newProjectDlg"
+		widgetVar="newProjectDlg" minHeight="40">
+		<h:form>
+			<p:growl id="growl" life="2000" />
+			<p:messages />
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<h:outputText value="Name: *" />
+				<p:inputText value="#{projectView.newProject.name}" required="true"
+					label="Project  name" />
+			</h:panelGrid>
+
+			<p:commandButton value="Save" id="btnSave" ajax="true"
+				actionListener="#{projectView.save}"
+				oncomplete="PF('newProjectDlg').hide();" />
+			<p:commandButton value="Cancel"
+				oncomplete="PF('newProjectDlg').hide();" process="@this" />
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

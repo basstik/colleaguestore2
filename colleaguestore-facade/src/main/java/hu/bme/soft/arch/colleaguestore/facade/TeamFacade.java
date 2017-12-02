@@ -20,5 +20,5 @@ public interface TeamFacade {
 
 	List<PersonDTO> setPersonsByTeamId(Long teamId);
 
-	void updatePersonList(Long teamId, List<String> target);
+	void updatePersonList(Long teamId, List<PersonDTO> persons);
 }
