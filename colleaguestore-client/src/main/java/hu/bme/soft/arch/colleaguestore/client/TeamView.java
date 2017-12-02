@@ -4,11 +4,15 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.model.DataModel;
 import javax.inject.Inject;
+
+import org.primefaces.event.CellEditEvent;
+import org.primefaces.event.RowEditEvent;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
@@ -25,8 +29,6 @@ public class TeamView implements Serializable {
 	private TeamDTO selectedTeam;
 
 	private Long teamid;
-
-	private LazyTeamDataModel datamodel;
 
 	@SuppressWarnings("cdi-ambiguous-dependency")
 	@Inject
@@ -48,15 +50,33 @@ public class TeamView implements Serializable {
 		teamFacade.create(newTeam);
 	}
 
-	public void modify() {
-		TeamDTO rowData = editTeam;
-		System.out.println("modify() Name: " + rowData.getName());
-		System.out.println("id: " + rowData.getId());
-		teamFacade.modify(rowData);
-	}
-
 	public void deleteTeam() {
 		teamFacade.remove(teamid);
+	}
+
+	public void onRowEdit(RowEditEvent event) {
+		TeamDTO teamDTO = ((TeamDTO) event.getObject());
+		FacesMessage msg = new FacesMessage("Team edited id" + teamDTO.getId());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+		System.out.println("modify() Name: " + teamDTO.getName());
+		System.out.println("id: " + teamDTO.getId());
+		teamFacade.modify(teamDTO);
+	}
+
+	public void onRowCancel(RowEditEvent event) {
+		FacesMessage msg = new FacesMessage("Team edit cancelled id" + ((TeamDTO) event.getObject()).getId());
+		FacesContext.getCurrentInstance().addMessage(null, msg);
+	}
+
+	public void onCellEdit(CellEditEvent event) {
+		Object oldValue = event.getOldValue();
+		Object newValue = event.getNewValue();
+
+		if (newValue != null && !newValue.equals(oldValue)) {
+			FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Cell Changed",
+					"Old: " + oldValue + ", New:" + newValue);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+		}
 	}
 
 	// public void printTeam() {
@@ -78,10 +98,6 @@ public class TeamView implements Serializable {
 
 	public void setSelectedTeam(TeamDTO selectedTeam) {
 		this.selectedTeam = selectedTeam;
-	}
-
-	public DataModel<TeamDTO> getDatamodel() {
-		return datamodel;
 	}
 
 	public void setNewTeam(TeamDTO newTeam) {
@@ -106,10 +122,5 @@ public class TeamView implements Serializable {
 
 	private void getTeamsFromServer() {
 		teams = teamFacade.getTeams();
-
-		TeamDTO[] stockArr = new TeamDTO[teams.size()];
-		stockArr = teams.toArray(stockArr);
-
-		// datamodel = new LazyTeamDataModel(teams);
 	}
 }
