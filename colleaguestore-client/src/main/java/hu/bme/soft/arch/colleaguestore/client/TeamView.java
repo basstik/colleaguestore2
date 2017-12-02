@@ -1,7 +1,6 @@
 package hu.bme.soft.arch.colleaguestore.client;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -15,7 +14,6 @@ import javax.inject.Inject;
 
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.model.DualListModel;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
@@ -75,24 +73,7 @@ public class TeamView implements Serializable {
 		TeamDTO teamDTO = (TeamDTO) event.getObject();
 		FacesMessage msg = new FacesMessage("Team Selected" + teamDTO.getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		// pickListView.setCities(dual());
 		pickListView.setPersonsByTeamId(teamDTO.getId());
-	}
-
-	private DualListModel<String> dual() {
-		List<String> citiesSource = new ArrayList<String>();
-		List<String> citiesTarget = new ArrayList<String>();
-
-		citiesSource.add("San Francisco");
-		citiesSource.add("London");
-		citiesSource.add("Paris");
-		citiesSource.add("Istanbul");
-		citiesSource.add("Berlin");
-		citiesSource.add("Barcelona");
-		citiesSource.add("Rome");
-
-		DualListModel<String> dualListModel = new DualListModel<String>(citiesSource, citiesTarget);
-		return dualListModel;
 	}
 
 	public List<TeamDTO> getTeams() {

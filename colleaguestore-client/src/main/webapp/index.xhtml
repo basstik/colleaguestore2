@@ -71,8 +71,13 @@
 			</p:dataTable>
 		</h:form>
 
-		<p:pickList id="pickListPerson" value="#{pickListView.persons}" var="persons"
-			itemLabel="#{persons}" itemValue="#{persons}" />
+		<p:growl id="msgs" showDetail="true" />
+		<p:pickList id="pickListPerson" value="#{pickListView.persons}"
+			var="persons" itemLabel="#{persons}" itemValue="#{persons}" />
+		<p:commandButton id="personSubmit" value="Submit" ajax="true"
+			action="#{pickListView.savePersons()}" style="margin-top:5px" process="@this" >
+		</p:commandButton>
+
 
 	</h:form>
 

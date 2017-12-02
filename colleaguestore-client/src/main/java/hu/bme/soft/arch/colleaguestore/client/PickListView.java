@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 
@@ -17,6 +18,7 @@ import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
 
+@SessionScoped
 @ManagedBean(name = "pickListView")
 public class PickListView {
 
@@ -60,7 +62,10 @@ public class PickListView {
 		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "List Reordered", null));
 	}
 
+	Long selectedTeamId;
+
 	public void setPersonsByTeamId(Long teamId) {
+		selectedTeamId = teamId;
 		List<PersonDTO> personsByTeam = teamFacade.setPersonsByTeamId(teamId);
 		List<PersonDTO> allPersons = personFacade.getPersons();
 
@@ -73,4 +78,26 @@ public class PickListView {
 
 		persons = new DualListModel<String>(personsSource, personsTarget);
 	}
+
+	public List<String> personssource = new ArrayList<String>();
+
+	public void savePersons() {
+		System.out.println("Fent: " + persons.getSource());
+		System.out.println("Lend: " + persons.getTarget());
+		teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
+	}
+
+	public List<String> getPersonssource() {
+		return personssource;
+	}
+
+	public void setPersonssource(List<String> personssource) {
+		this.personssource = personssource;
+	}
+
+	// public void savePersons() {
+	// System.out.println("Fent: " + persons.getSource());
+	// System.out.println("Lend: " + persons.getTarget());
+	// }
+
 }

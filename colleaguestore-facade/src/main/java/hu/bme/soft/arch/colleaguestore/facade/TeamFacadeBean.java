@@ -65,6 +65,11 @@ public class TeamFacadeBean implements TeamFacade {
 		return personService.convertList(teamPM.find(teamId).getPersons());
 	}
 
+	@Override
+	public void updatePersonList(Long teamId, List<Per> persons) {
+		// teamPM.find(teamId).setPersons(persons);
+	}
+
 	// @Override
 	// public PagingTeamDTO getTeams(TeamFilterDTO teamFilterDTO) {
 	// List<TeamDTO> teamDto = new ArrayList<>();
