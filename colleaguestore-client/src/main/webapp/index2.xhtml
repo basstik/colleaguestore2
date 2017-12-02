@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Persons Page</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="myForm">
+		<h:form id="bar">
+			<p:growl id="growl" life="2000" />
+			<p:commandButton value="Refresh" id="ajax"
+				update="myForm:person:personList" ajax="true"
+				actionListener="#{personView.refreshButtonAction}"
+				styleClass="ui-priority-primary">
+			</p:commandButton>
+			<p:commandButton value="New " type="button"
+				onclick="PF('newPersonDlg').show();" />
+		</h:form>
+
+		<h:form id="person">
+			<p:growl id="msgs" showDetail="true" />
+
+			<p:dataTable var="person" value="#{personView.persons}"
+				widgetVar="personList" id="personList" editable="true"
+				style="margin-bottom:20px">
+				<f:facet name="header">Persons</f:facet>
+
+				<p:ajax event="rowEdit" listener="#{personView.onRowEdit}"
+					update=":myForm:person:msgs" />
+				<p:ajax event="rowEditCancel" listener="#{personView.onRowCancel}"
+					update=":myForm:person:msgs" />
+
+				<p:column headerText="Id" id="personId">
+					<h:outputText value="#{person.id}" />
+				</p:column>
+				<p:column headerText="Frist name" id="personFirstName">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{person.firstName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{person.firstName}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Last name" id="personLasttName">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{person.lastName}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText id="modelInput" value="#{person.lastName}"
+								style="width:100%" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+				<p:column headerText="Delete" id="personDelete"
+					style="width:120px;text-align: center">
+					<p:commandButton value="Delete" icon="ui-icon-trash"
+						id="personDeleteBtn" action="#{personView.deletePerson}" process="@this">
+						<f:setPropertyActionListener value="#{person.id}"
+							target="#{personView.personid}" />
+					</p:commandButton>
+				</p:column>
+
+				<p:column style="width:32px">
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</h:form>
+
+
+
+	<p:dialog header="New Person" id="newPersonDlg" widgetVar="newPersonDlg"
+		minHeight="40">
+		<h:form>
+			<p:growl id="growl" life="2000" />
+			<p:messages />
+			<h:panelGrid columns="2" columnClasses="label, value">
+				<h:outputText value="FirstName: *" />
+				<p:inputText value="#{personView.newPerson.firstName}" required="true"
+					label="Person first name" />
+			</h:panelGrid>
+
+			<p:commandButton value="Save" id="btnSave" ajax="true"
+				actionListener="#{personView.save}"
+				oncomplete="PF('newPersonDlg').hide();" />
+			<p:commandButton value="Cancel" oncomplete="PF('newPersonDlg').hide();"
+				process="@this" />
+		</h:form>
+	</p:dialog>
+
+
+</h:body>
+</html>

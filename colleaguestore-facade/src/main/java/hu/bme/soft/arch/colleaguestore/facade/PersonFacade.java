@@ -7,18 +7,17 @@ import javax.ejb.Local;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PagingPersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonDTO;
 import hu.bme.soft.arch.colleaguestore.domain.dto.PersonFilterDTO;
-import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
 @Local
 public interface PersonFacade {
 
+	List<PersonDTO> getPersons();
+
 	PagingPersonDTO getPersons(PersonFilterDTO personFilterDTO);
 
-	void createPerson(PersonDTO personDto);
+	void create(PersonDTO personDto);
 
-	void updatePerson(PersonDTO person);
+	void update(PersonDTO person);
 
-	void deletePerson(Long id);
-
-	List<Person> getPersons();
+	void delete(Long id);
 }

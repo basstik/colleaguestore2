@@ -30,8 +30,13 @@ public class PersonFacadeBean implements PersonFacade {
 	}
 
 	@Override
-	public List<Person> getPersons() {
-		return personPM.getPersons();
+	public List<PersonDTO> getPersons() {
+		List<PersonDTO> persons = new ArrayList<>();
+		for (Person person : personPM.getPersons()) {
+			persons.add(new PersonDTO(person.getId(), person.getFirstName(), person.getLastName(),
+					person.getNationality(), person.getDateOfBirth()));
+		}
+		return persons;
 	}
 
 	@Override
@@ -49,13 +54,13 @@ public class PersonFacadeBean implements PersonFacade {
 	}
 
 	@Override
-	public void createPerson(PersonDTO personDto) {
+	public void create(PersonDTO personDto) {
 		personPM.persist(new Person(personDto.getFirstName(), personDto.getLastName(), personDto.getNationality(),
 				personDto.getDateOfBirth(), personDto.getPosition()));
 	}
 
 	@Override
-	public void updatePerson(PersonDTO person) {
+	public void update(PersonDTO person) {
 		Person a = personPM.find(person.getId());
 		a.setFirstName(person.getFirstName());
 		a.setLastName(person.getLastName());
@@ -65,7 +70,7 @@ public class PersonFacadeBean implements PersonFacade {
 	}
 
 	@Override
-	public void deletePerson(Long id) {
+	public void delete(Long id) {
 		logger.info("Delete id: " + id);
 		personPM.remove(id);
 	}

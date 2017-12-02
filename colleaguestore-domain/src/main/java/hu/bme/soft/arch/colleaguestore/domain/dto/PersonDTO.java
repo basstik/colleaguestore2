@@ -46,6 +46,15 @@ public class PersonDTO implements Serializable {
 		this.position = position;
 	}
 
+	public PersonDTO(Long id, String firstName, String lastName, String nationality, Date dateOfBirth) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.nationality = nationality;
+		this.dateOfBirth = dateOfBirth;
+	}
+
 	public Long getId() {
 		return id;
 	}
