@@ -10,8 +10,8 @@ import org.primefaces.model.DualListModel;
 
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
-@FacesConverter(value = "primeFacesPickListConverter")
-public class PrimeFacesPickListConverter implements Converter {
+@FacesConverter(value = "personConverter")
+public class PrimeFacesPersonPickListConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
 		Object ret = null;

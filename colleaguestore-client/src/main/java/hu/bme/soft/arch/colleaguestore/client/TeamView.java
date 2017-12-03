@@ -38,6 +38,9 @@ public class TeamView implements Serializable {
 	@ManagedProperty(value = "#{teamPersonPickListView}")
 	private TeamPersonPickListView teamPersonPickListView;
 
+	@ManagedProperty(value = "#{teamProjectPickListView}")
+	private TeamProjectPickListView teamProjectPickListView;
+
 	@PostConstruct
 	public void init() {
 		teams = teamFacade.getTeams();
@@ -74,6 +77,7 @@ public class TeamView implements Serializable {
 		FacesMessage msg = new FacesMessage("Team Selected" + teamDTO.getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 		teamPersonPickListView.setPersonsByTeamId(teamDTO.getId());
+		teamProjectPickListView.setProjectsByTeamId(teamDTO.getId());
 	}
 
 	public List<TeamDTO> getTeams() {
@@ -119,4 +123,13 @@ public class TeamView implements Serializable {
 	public void setTeamPersonPickListView(TeamPersonPickListView teamPersonPickListView) {
 		this.teamPersonPickListView = teamPersonPickListView;
 	}
+
+	public TeamProjectPickListView getTeamProjectPickListView() {
+		return teamProjectPickListView;
+	}
+
+	public void setTeamProjectPickListView(TeamProjectPickListView teamProjectPickListView) {
+		this.teamProjectPickListView = teamProjectPickListView;
+	}
+
 }

@@ -40,7 +40,7 @@
 				<p:ajax event="rowEditCancel" listener="#{teamView.onRowCancel}"
 					update=":myForm:team:msgs" />
 				<p:ajax event="rowSelect" listener="#{teamView.onRowSelect}"
-					update=":myForm:team:msgs :myForm:b:pickListTeamPerson" />
+					update=":myForm:team:msgs :myForm:b:pickListTeamPerson :myForm:a:pickListTeamProject" />
 
 				<p:column headerText="Id" id="teamId">
 					<h:outputText value="#{team.id}" />
@@ -75,7 +75,8 @@
 			<p:growl id="msgs" showDetail="true" />
 			<p:pickList id="pickListTeamPerson"
 				value="#{teamPersonPickListView.persons}" var="person"
-				itemLabel="#{person.firstName}" itemValue="#{person}" converter="primeFacesPickListConverter">
+				itemLabel="#{person.firstName}" itemValue="#{person}"
+				converter="personConverter">
 				<f:facet name="sourceCaption">Persons</f:facet>
 				<f:facet name="targetCaption">Persons in team</f:facet>
 			</p:pickList>
@@ -88,8 +89,12 @@
 
 		<h:form id="a">
 			<p:pickList id="pickListTeamProject"
-				value="#{teamProjectPickListView.projects}" var="projs"
-				itemLabel="#{projs}" itemValue="#{projs}" />
+				value="#{teamProjectPickListView.projects}" var="proj"
+				itemLabel="#{proj.name}" itemValue="#{proj}"
+				converter="projectConverter">
+				<f:facet name="sourceCaption">Project</f:facet>
+				<f:facet name="targetCaption">Projects in team</f:facet>
+			</p:pickList>
 			<p:commandButton id="projectSubmit" value="Submit" ajax="true"
 				action="#{teamProjectPickListView.saveProjects()}"
 				style="margin-top:5px" process="myForm:a @this">

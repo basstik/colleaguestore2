@@ -6,6 +6,7 @@ import javax.ejb.Local;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Project;
 
 @Local
 public interface TeamFacade {
@@ -21,4 +22,8 @@ public interface TeamFacade {
 	List<Person> getPersonsByTeamId(Long teamId);
 
 	void updatePersonList(Long teamId, List<Person> persons);
+
+	List<Project> getProjectsByTeamId(Long teamId);
+
+	void updateProjectList(Long teamId, List<Project> persons);
 }

@@ -50,12 +50,6 @@ public class Person extends BaseEntity {
 	@ManyToMany(mappedBy = "persons")
 	private List<Team> teams;
 
-	@Override
-	public String toString() {
-		return "Person [id " + getId() + "firstName=" + firstName + ", lastName=" + lastName + ", nationality="
-				+ nationality + ", dateOfBirth=" + dateOfBirth + ", position=" + position + "]";
-	}
-
 	public Person() {
 	}
 
@@ -120,6 +114,12 @@ public class Person extends BaseEntity {
 
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
+	}
+
+	@Override
+	public String toString() {
+		return "Person [id " + getId() + "firstName=" + firstName + ", lastName=" + lastName + ", nationality="
+				+ nationality + ", dateOfBirth=" + dateOfBirth + ", position=" + position + "]";
 	}
 }
 

@@ -12,6 +12,7 @@ import hu.bme.soft.arch.colleaguestore.business.PersonServiceBean;
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.persistence.TeamPersistenceManager;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Project;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 
 @Stateless
@@ -68,6 +69,16 @@ public class TeamFacadeBean implements TeamFacade {
 	@Override
 	public void updatePersonList(Long teamId, List<Person> persons) {
 		teamPM.find(teamId).setPersons(persons);
+	}
+
+	@Override
+	public List<Project> getProjectsByTeamId(Long teamId) {
+		return teamPM.find(teamId).getProjects();
+	}
+
+	@Override
+	public void updateProjectList(Long teamId, List<Project> projects) {
+		teamPM.find(teamId).setProjects(projects);
 	}
 
 	// @Override
