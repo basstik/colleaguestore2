@@ -14,9 +14,7 @@
 
 <h:body>
 
-
 	<h:form id="myForm">
-
 		<form>
 			<h:outputText
 				value="Welcome, #{userData.user.username} in role #{userData.user.permissionString}" />
@@ -35,7 +33,7 @@
 				styleClass="ui-priority-primary">
 			</p:commandButton>
 			<p:commandButton value="New " type="button"
-				onclick="PF('newTeamDlg').show();" />
+				onclick="PF('newTeamDlg').show();" rendered="#{userData.user.admin}" />
 		</h:form>
 
 		<h:form id="team">
@@ -69,7 +67,7 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column headerText="Delete" id="teamDelete"
-					style="width:120px;text-align: center">
+					style="width:120px;text-align: center" rendered="#{userData.user.admin}">
 					<p:commandButton value="Delete" icon="ui-icon-trash"
 						id="teamDeleteBtn" action="#{teamView.deleteTeam}" process="@this">
 						<f:setPropertyActionListener value="#{team.id}"
@@ -77,7 +75,7 @@
 					</p:commandButton>
 				</p:column>
 
-				<p:column style="width:32px">
+				<p:column style="width:32px" rendered="#{userData.user.admin}">
 					<p:rowEditor />
 				</p:column>
 			</p:dataTable>
@@ -88,13 +86,13 @@
 			<p:pickList id="pickListTeamPerson"
 				value="#{teamPersonPickListView.persons}" var="person"
 				itemLabel="#{person.firstName}" itemValue="#{person}"
-				converter="personConverter">
+				converter="personConverter" >
 				<f:facet name="sourceCaption">Persons</f:facet>
 				<f:facet name="targetCaption">Persons in team</f:facet>
 			</p:pickList>
 			<p:commandButton id="personSubmit" value="Submit" ajax="true"
 				action="#{teamPersonPickListView.savePersons()}"
-				style="margin-top:5px" process="myForm:b @this">
+				style="margin-top:5px" process="myForm:b @this" rendered="#{userData.user.admin}">
 			</p:commandButton>
 		</h:form>
 
@@ -109,7 +107,7 @@
 			</p:pickList>
 			<p:commandButton id="projectSubmit" value="Submit" ajax="true"
 				action="#{teamProjectPickListView.saveProjects()}"
-				style="margin-top:5px" process="myForm:a @this">
+				style="margin-top:5px" process="myForm:a @this" rendered="#{userData.user.admin}">
 			</p:commandButton>
 		</h:form>
 
