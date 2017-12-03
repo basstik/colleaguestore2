@@ -22,8 +22,6 @@ import hu.bme.soft.arch.colleaguestore.domain.enumeration.Position;
 		@NamedQuery(name = "Person.findAll", query = "SELECT a FROM Person a ORDER BY a.firstName, a.lastName") })
 public class Person extends BaseEntity {
 
-	private static final long serialVersionUID = 1L;
-
 	@Column(name = "first_name", nullable = false, length = 50)
 	private String firstName;
 
