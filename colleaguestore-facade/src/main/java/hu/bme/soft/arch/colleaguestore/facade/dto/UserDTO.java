@@ -9,12 +9,12 @@ public class UserDTO implements Serializable {
 
 	private Set<String> permissions;
 
-	public UserDTO() {
-	}
+	private boolean admin;
 
-	public UserDTO(String username, Set<String> permissions) {
-		this.username = username;
-		this.permissions = permissions;
+	public UserDTO(String currentUser, Set<String> set, boolean isAdmin) {
+		this.username = currentUser;
+		this.permissions = set;
+		this.admin = isAdmin;
 	}
 
 	public String getPermissionString() {
@@ -27,6 +27,14 @@ public class UserDTO implements Serializable {
 
 	public Set<String> getPermission() {
 		return permissions;
+	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
 	}
 
 }

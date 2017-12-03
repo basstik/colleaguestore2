@@ -19,9 +19,12 @@ public class UserData implements Serializable {
 
 	private UserDTO user;
 
+	private boolean admin;
+
 	@PostConstruct
 	public void init() {
 		user = userFacade.getLoggedInUser();
+		admin = user.isAdmin();
 		System.out.println("User: " + user.getUsername() + " " + user.getPermission());
 	}
 
@@ -40,4 +43,13 @@ public class UserData implements Serializable {
 	public String getWelcomeMessage() {
 		return "Hello " + user.getUsername();
 	}
+
+	public boolean isAdmin() {
+		return admin;
+	}
+
+	public void setAdmin(boolean admin) {
+		this.admin = admin;
+	}
+
 }
