@@ -14,7 +14,12 @@
 
 <h:body>
 
+
 	<h:form id="myForm">
+
+		<h:outputText value="Welcome, #{userData.user.username} in role #{userData.user.permissionString}" />
+		<h:outputText value="&lt;br/&gt;" escape="false" />
+
 		<h:form id="bar">
 			<p:growl id="growl" life="2000" />
 			<p:commandButton value="Refresh" id="ajax"
