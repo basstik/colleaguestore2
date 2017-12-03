@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+   "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+	
+<h:head>
+</h:head>
+
+<h:body>
+	<h:form>
+		<h:outputText
+			value="Welcome, #{userData.user.username} in role #{userData.user.permissionString}" />
+		<h:outputText value="&lt;br/&gt;" escape="false" />
+	</h:form>
+
+	<form action="${pageContext.request.contextPath}/client/logout"
+		method="post">
+		<input type="submit" value="Logout" />
+	</form>
+
+	<h:form>
+		<h:commandButton value="Team" action="index.xhtml" />
+		<h:commandButton value="Person" action="index2.xhtml" />
+		<h:commandButton value="Project" action="index3.xhtml" />
+	</h:form>
+
+</h:body>
+</html>

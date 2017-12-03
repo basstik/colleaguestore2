@@ -6,29 +6,21 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:tp="http://java.sun.com/jsf/composite/tutorialspoint"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
 <h:head>
 	<title>Teams Page</title>
 </h:head>
 
 <h:body>
+	<ui:include src="/menubar.xhtml" />
 
 	<h:form id="myForm">
-		<form>
-			<h:outputText
-				value="Welcome, #{userData.user.username} in role #{userData.user.permissionString}" />
-			<h:outputText value="&lt;br/&gt;" escape="false" />
-		</form>
-
-		<form action="${pageContext.request.contextPath}/client/logout" method="post">
-			<input type="submit" value="Logout" />
-		</form>
-
 		<h:form id="bar">
 			<p:growl id="growl" life="2000" />
 			<p:commandButton value="Refresh" id="ajax"
-				update="myForm:team:teamList" ajax="true"
+				update=":myForm:team:teamList" ajax="true"
 				actionListener="#{teamView.refreshButtonAction}"
 				styleClass="ui-priority-primary">
 			</p:commandButton>
@@ -67,7 +59,8 @@
 					</p:cellEditor>
 				</p:column>
 				<p:column headerText="Delete" id="teamDelete"
-					style="width:120px;text-align: center" rendered="#{userData.user.admin}">
+					style="width:120px;text-align: center"
+					rendered="#{userData.user.admin}">
 					<p:commandButton value="Delete" icon="ui-icon-trash"
 						id="teamDeleteBtn" action="#{teamView.deleteTeam}" process="@this">
 						<f:setPropertyActionListener value="#{team.id}"
@@ -86,13 +79,14 @@
 			<p:pickList id="pickListTeamPerson"
 				value="#{teamPersonPickListView.persons}" var="person"
 				itemLabel="#{person.firstName}" itemValue="#{person}"
-				converter="personConverter" >
+				converter="personConverter">
 				<f:facet name="sourceCaption">Persons</f:facet>
 				<f:facet name="targetCaption">Persons in team</f:facet>
 			</p:pickList>
 			<p:commandButton id="personSubmit" value="Submit" ajax="true"
 				action="#{teamPersonPickListView.savePersons()}"
-				style="margin-top:5px" process="myForm:b @this" rendered="#{userData.user.admin}">
+				style="margin-top:5px" process="myForm:b @this"
+				rendered="#{userData.user.admin}">
 			</p:commandButton>
 		</h:form>
 
@@ -107,7 +101,8 @@
 			</p:pickList>
 			<p:commandButton id="projectSubmit" value="Submit" ajax="true"
 				action="#{teamProjectPickListView.saveProjects()}"
-				style="margin-top:5px" process="myForm:a @this" rendered="#{userData.user.admin}">
+				style="margin-top:5px" process="myForm:a @this"
+				rendered="#{userData.user.admin}">
 			</p:commandButton>
 		</h:form>
 

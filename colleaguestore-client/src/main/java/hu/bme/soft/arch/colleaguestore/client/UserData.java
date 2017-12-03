@@ -10,7 +10,7 @@ import javax.inject.Inject;
 import hu.bme.soft.arch.colleaguestore.facade.UserFacade;
 import hu.bme.soft.arch.colleaguestore.facade.dto.UserDTO;
 
-@ManagedBean(name = "userData", eager = true)
+@ManagedBean(name = "userData")
 @SessionScoped
 public class UserData implements Serializable {
 

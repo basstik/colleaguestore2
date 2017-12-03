@@ -46,7 +46,12 @@ public class TeamView implements Serializable {
 		teams = teamFacade.getTeams();
 	}
 
+	public String goToPage1() {
+		return "aaaa";
+	}
+
 	public void refreshButtonAction(ActionEvent actionEvent) {
+		System.out.println("refreshButtonAction");
 		teams = teamFacade.getTeams();
 	}
 

@@ -60,6 +60,10 @@ public class Team extends BaseEntity {
 		this.projects = projects;
 	}
 
+	@Override
+	public String toString() {
+		return "Team [name=" + name + ", persons=" + persons + ", projects=" + projects + "]";
+	}
 }
 
 // CREATE TABLE team (
