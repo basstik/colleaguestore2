@@ -22,21 +22,6 @@ import hu.bme.soft.arch.colleaguestore.domain.enumeration.Position;
 		@NamedQuery(name = "Person.findAll", query = "SELECT a FROM Person a ORDER BY a.firstName, a.lastName") })
 public class Person extends BaseEntity {
 
-	// CREATE TABLE person (
-	// id INT NOT NULL,
-	// firstName VARCHAR(50),
-	// lastName VARCHAR(50),
-	// nationality VARCHAR(50),
-	// dateOfBirth DATE,
-	// position VARCHAR(50),
-	// ??? VARCHAR(50),
-	// );
-
-	// CREATE TABLE PERSON_TEAM (
-	// PERSON_ID INT NOT NULL,
-	// TEAM_ID INT NOT NULL
-	// );
-
 	private static final long serialVersionUID = 1L;
 
 	@Column(name = "first_name", nullable = false, length = 50)
@@ -67,7 +52,8 @@ public class Person extends BaseEntity {
 
 	@Override
 	public String toString() {
-		return firstName;
+		return "Person [id " + getId() + "firstName=" + firstName + ", lastName=" + lastName + ", nationality="
+				+ nationality + ", dateOfBirth=" + dateOfBirth + ", position=" + position + "]";
 	}
 
 	public Person() {
@@ -86,16 +72,6 @@ public class Person extends BaseEntity {
 		this.lastName = lastName;
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
-	}
-
-	@Override
-	public Long getId() {
-		return super.getId();
-	}
-
-	@Override
-	public void setId(Long id) {
-		super.setId(id);
 	}
 
 	public String getFirstName() {
@@ -146,3 +122,18 @@ public class Person extends BaseEntity {
 		this.teams = teams;
 	}
 }
+
+// CREATE TABLE person (
+// id INT NOT NULL,
+// firstName VARCHAR(50),
+// lastName VARCHAR(50),
+// nationality VARCHAR(50),
+// dateOfBirth DATE,
+// position VARCHAR(50),
+// ??? VARCHAR(50),
+// );
+
+// CREATE TABLE PERSON_TEAM (
+// PERSON_ID INT NOT NULL,
+// TEAM_ID INT NOT NULL
+// );

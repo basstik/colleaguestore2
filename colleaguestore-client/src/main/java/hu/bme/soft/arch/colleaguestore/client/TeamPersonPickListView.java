@@ -42,8 +42,12 @@ public class TeamPersonPickListView {
 	public void setPersonsByTeamId(Long teamId) {
 		System.out.println("setPersonsByTeamId");
 		selectedTeamId = teamId;
-		HashSet<Person> personsByTeam = new HashSet<Person>(teamFacade.getPersonsByTeamId(teamId));
 		HashSet<Person> allPersons = new HashSet<Person>(personFacade.getPersons());
+		HashSet<Person> personsByTeam = new HashSet<Person>(teamFacade.getPersonsByTeamId(teamId));
+		System.out.println(personsByTeam);
+		System.out.println(allPersons);
+		allPersons.removeAll(personsByTeam);
+		System.out.println(allPersons);
 
 		persons = new DualListModel<Person>(new ArrayList<Person>(allPersons), new ArrayList<Person>(personsByTeam));
 	}
