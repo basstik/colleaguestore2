@@ -16,9 +16,9 @@
 
 
 	<h:form id="myForm">
-
-		<h:outputText value="Welcome, #{userData.user.username} in role #{userData.user.permissionString}" />
-		<h:outputText value="&lt;br/&gt;" escape="false" />
+		<form action="${pageContext.request.contextPath}/client/logout" method="post">
+			<input type="submit" value="Logout" />
+		</form>
 
 		<h:form id="bar">
 			<p:growl id="growl" life="2000" />

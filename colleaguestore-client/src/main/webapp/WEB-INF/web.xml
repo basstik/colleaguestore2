@@ -15,7 +15,16 @@
 			<form-error-page>/login.jsp?retry=true</form-error-page>
 		</form-login-config>
 	</login-config>
-
+	
+	<servlet>
+		<servlet-name>LogoutServlet</servlet-name>
+		<servlet-class>hu.bme.soft.arch.colleaguestore.client.LogoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>LogoutServlet</servlet-name>
+		<url-pattern>/logout</url-pattern>
+	</servlet-mapping>
+	
 	<error-page>
 		<error-code>403</error-code>
 		<location>/login.jsp?unauthorized=true</location>
