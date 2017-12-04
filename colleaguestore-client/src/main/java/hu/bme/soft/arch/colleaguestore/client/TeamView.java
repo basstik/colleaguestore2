@@ -1,6 +1,7 @@
 package hu.bme.soft.arch.colleaguestore.client;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -25,11 +26,13 @@ import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 public class TeamView implements Serializable {
 	private List<Team> teams;
 
-	private Team newTeam;
+	private Team newTeam = new Team();;
 
 	private Team editTeam = new Team();
 
 	private Team selectedTeam;
+
+	private Person newLeader = new Person();
 
 	private Long teamid;
 
@@ -50,14 +53,14 @@ public class TeamView implements Serializable {
 	@PostConstruct
 	public void init() {
 		newTeam = new Team();
-		Person leader = new Person();
-		leader.setFirstName("");
-		newTeam.setLeader(leader);
 		teams = teamFacade.getTeams();
 	}
 
+	List<Person> leaders = new ArrayList<Person>();
+
 	public List<Person> getLeaders() {
-		return personFacade.getPersons();
+		leaders = personFacade.getPersons();
+		return leaders;
 	}
 
 	public void refreshButtonAction(ActionEvent actionEvent) {
@@ -67,6 +70,7 @@ public class TeamView implements Serializable {
 
 	public void save() {
 		System.out.println("Név: " + newTeam.getName());
+		// newTeam.setLeader(newLeader);
 		teamFacade.create(newTeam);
 		newTeam = new Team();
 	}
@@ -112,8 +116,28 @@ public class TeamView implements Serializable {
 		this.newTeam = newTeam;
 	}
 
+	public Person getNewLeader() {
+		return newLeader;
+	}
+
+	public void setNewLeader(Person newLeader) {
+		this.newLeader = newLeader;
+	}
+
 	public Team getEditTeam() {
 		return editTeam;
+	}
+
+	public PersonFacade getPersonFacade() {
+		return personFacade;
+	}
+
+	public void setPersonFacade(PersonFacade personFacade) {
+		this.personFacade = personFacade;
+	}
+
+	public void setLeaders(List<Person> leaders) {
+		this.leaders = leaders;
 	}
 
 	public void setEditTeam(Team editTeam) {

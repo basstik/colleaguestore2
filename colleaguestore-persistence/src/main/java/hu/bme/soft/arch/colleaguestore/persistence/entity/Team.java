@@ -9,6 +9,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.LazyCollection;
@@ -22,7 +23,8 @@ public class Team extends BaseEntity {
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
 
-	@Column(name = "leader")
+	@OneToOne
+	@JoinColumn(name = "leader_fk", referencedColumnName = "id")
 	private Person leader;
 
 	@LazyCollection(LazyCollectionOption.FALSE)
