@@ -1,4 +1,4 @@
-package hu.bme.soft.arch.colleaguestore.client;
+package hu.bme.soft.arch.colleaguestore.client.converter;
 
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -8,10 +8,10 @@ import javax.faces.convert.FacesConverter;
 import org.primefaces.component.picklist.PickList;
 import org.primefaces.model.DualListModel;
 
-import hu.bme.soft.arch.colleaguestore.persistence.entity.Project;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 
-@FacesConverter(value = "projectConverter")
-public class PrimeFacesProjectPickListConverter implements Converter {
+@FacesConverter(value = "personConverter")
+public class PrimeFacesPersonPickListConverter implements Converter {
 	@Override
 	public Object getAsObject(FacesContext arg0, UIComponent arg1, String arg2) {
 		Object ret = null;
@@ -19,7 +19,7 @@ public class PrimeFacesProjectPickListConverter implements Converter {
 			Object dualList = ((PickList) arg1).getValue();
 			DualListModel dl = (DualListModel) dualList;
 			for (Object o : dl.getSource()) {
-				String id = "" + ((Project) o).getId();
+				String id = "" + ((Person) o).getId();
 				if (arg2.equals(id)) {
 					ret = o;
 					break;
@@ -27,7 +27,7 @@ public class PrimeFacesProjectPickListConverter implements Converter {
 			}
 			if (ret == null)
 				for (Object o : dl.getTarget()) {
-					String id = "" + ((Project) o).getId();
+					String id = "" + ((Person) o).getId();
 					if (arg2.equals(id)) {
 						ret = o;
 						break;
@@ -40,8 +40,8 @@ public class PrimeFacesProjectPickListConverter implements Converter {
 	@Override
 	public String getAsString(FacesContext arg0, UIComponent arg1, Object arg2) {
 		String str = "";
-		if (arg2 instanceof Project) {
-			str = "" + ((Project) arg2).getId();
+		if (arg2 instanceof Person) {
+			str = "" + ((Person) arg2).getId();
 		}
 		return str;
 	}

@@ -15,8 +15,9 @@ import javax.inject.Inject;
 import org.primefaces.event.RowEditEvent;
 import org.primefaces.event.SelectEvent;
 
-import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
+import hu.bme.soft.arch.colleaguestore.facade.PersonFacade;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 
 @ManagedBean(name = "teamView")
@@ -24,7 +25,7 @@ import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 public class TeamView implements Serializable {
 	private List<Team> teams;
 
-	private Team newTeam = new Team();
+	private Team newTeam;
 
 	private Team editTeam = new Team();
 
@@ -36,6 +37,10 @@ public class TeamView implements Serializable {
 	@Inject
 	private TeamFacade teamFacade;
 
+	@SuppressWarnings("cdi-ambiguous-dependency")
+	@Inject
+	private PersonFacade personFacade;
+
 	@ManagedProperty(value = "#{teamPersonPickListView}")
 	private TeamPersonPickListView teamPersonPickListView;
 
@@ -44,11 +49,15 @@ public class TeamView implements Serializable {
 
 	@PostConstruct
 	public void init() {
+		newTeam = new Team();
+		Person leader = new Person();
+		leader.setFirstName("");
+		newTeam.setLeader(leader);
 		teams = teamFacade.getTeams();
 	}
 
-	public String goToPage1() {
-		return "aaaa";
+	public List<Person> getLeaders() {
+		return personFacade.getPersons();
 	}
 
 	public void refreshButtonAction(ActionEvent actionEvent) {
@@ -59,6 +68,7 @@ public class TeamView implements Serializable {
 	public void save() {
 		System.out.println("Név: " + newTeam.getName());
 		teamFacade.create(newTeam);
+		newTeam = new Team();
 	}
 
 	public void deleteTeam() {
@@ -74,16 +84,16 @@ public class TeamView implements Serializable {
 	}
 
 	public void onRowCancel(RowEditEvent event) {
-		FacesMessage msg = new FacesMessage("Team edit cancelled id" + ((TeamDTO) event.getObject()).getId());
+		FacesMessage msg = new FacesMessage("Team edit cancelled id" + ((Team) event.getObject()).getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
 	}
 
 	public void onRowSelect(SelectEvent event) {
-		TeamDTO teamDTO = (TeamDTO) event.getObject();
-		FacesMessage msg = new FacesMessage("Team Selected" + teamDTO.getId());
+		Team team = (Team) event.getObject();
+		FacesMessage msg = new FacesMessage("Team Selected" + team.getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		teamPersonPickListView.setPersonsByTeamId(teamDTO.getId());
-		teamProjectPickListView.setProjectsByTeamId(teamDTO.getId());
+		teamPersonPickListView.setPersonsByTeamId(team.getId());
+		teamProjectPickListView.setProjectsByTeamId(team.getId());
 	}
 
 	public List<Team> getTeams() {

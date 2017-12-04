@@ -43,6 +43,7 @@ public class PersonView implements Serializable {
 
 	public void save() {
 		personFacade.create(newPerson);
+		newPerson = new Person();
 	}
 
 	public void deletePerson() {

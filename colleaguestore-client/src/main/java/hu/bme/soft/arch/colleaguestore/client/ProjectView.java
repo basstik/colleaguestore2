@@ -43,6 +43,7 @@ public class ProjectView implements Serializable {
 
 	public void save() {
 		projectFacade.create(newProject);
+		newProject = new Project();
 	}
 
 	public void deleteProject() {

@@ -58,6 +58,7 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
+
 				<p:column headerText="Delete" id="teamDelete"
 					style="width:120px;text-align: center"
 					rendered="#{userData.user.admin}">
@@ -121,6 +122,14 @@
 				<h:outputText value="Name: *" />
 				<p:inputText value="#{teamView.newTeam.name}" required="true"
 					label="Team name" />
+
+				<h:outputText value="Boss" />
+				<h:selectOneMenu value="#{teamView.newTeam.leader}"
+					style="width:100%" converter="personConverter">
+					<f:selectItems value="#{teamView.leaders}" var="pers"
+						itemLabel="#{pers.firstName}" itemValue="#{pers}" />
+				</h:selectOneMenu>
+
 			</h:panelGrid>
 
 			<p:commandButton value="Save" id="btnSave" ajax="true"
