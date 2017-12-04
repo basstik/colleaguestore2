@@ -4,20 +4,20 @@ import java.util.List;
 
 import javax.ejb.Local;
 
-import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Project;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 
 @Local
 public interface TeamFacade {
 
-	List<TeamDTO> getTeams();
+	List<Team> getTeams();
 
-	void create(TeamDTO newTeam);
+	void create(Team newTeam);
 
 	void remove(Long l);
 
-	void modify(TeamDTO editTeam);
+	void modify(Team editTeam);
 
 	List<Person> getPersonsByTeamId(Long teamId);
 

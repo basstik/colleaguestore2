@@ -17,17 +17,18 @@ import org.primefaces.event.SelectEvent;
 
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.facade.TeamFacade;
+import hu.bme.soft.arch.colleaguestore.persistence.entity.Team;
 
 @ManagedBean(name = "teamView")
 @ApplicationScoped
 public class TeamView implements Serializable {
-	private List<TeamDTO> teams;
+	private List<Team> teams;
 
-	private TeamDTO newTeam = new TeamDTO();
+	private Team newTeam = new Team();
 
-	private TeamDTO editTeam = new TeamDTO();
+	private Team editTeam = new Team();
 
-	private TeamDTO selectedTeam;
+	private Team selectedTeam;
 
 	private Long teamid;
 
@@ -65,11 +66,11 @@ public class TeamView implements Serializable {
 	}
 
 	public void onRowEdit(RowEditEvent event) {
-		TeamDTO teamDTO = ((TeamDTO) event.getObject());
-		FacesMessage msg = new FacesMessage("Team edited id" + teamDTO.getId());
+		Team team = ((Team) event.getObject());
+		FacesMessage msg = new FacesMessage("Team edited id" + team.getId());
 		FacesContext.getCurrentInstance().addMessage(null, msg);
-		System.out.println("modify() Name: " + teamDTO.getName());
-		teamFacade.modify(teamDTO);
+		System.out.println("modify() Name: " + team.getName());
+		teamFacade.modify(team);
 	}
 
 	public void onRowCancel(RowEditEvent event) {
@@ -85,40 +86,52 @@ public class TeamView implements Serializable {
 		teamProjectPickListView.setProjectsByTeamId(teamDTO.getId());
 	}
 
-	public List<TeamDTO> getTeams() {
+	public List<Team> getTeams() {
 		return teams;
 	}
 
-	public TeamDTO getNewTeam() {
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
+
+	public Team getNewTeam() {
 		return newTeam;
 	}
 
-	public TeamDTO getSelectedTeam() {
-		return selectedTeam;
-	}
-
-	public void setSelectedTeam(TeamDTO selectedTeam) {
-		this.selectedTeam = selectedTeam;
-	}
-
-	public void setNewTeam(TeamDTO newTeam) {
+	public void setNewTeam(Team newTeam) {
 		this.newTeam = newTeam;
 	}
 
-	public void setTeamid(Long teamid) {
-		this.teamid = teamid;
+	public Team getEditTeam() {
+		return editTeam;
+	}
+
+	public void setEditTeam(Team editTeam) {
+		this.editTeam = editTeam;
+	}
+
+	public Team getSelectedTeam() {
+		return selectedTeam;
+	}
+
+	public void setSelectedTeam(Team selectedTeam) {
+		this.selectedTeam = selectedTeam;
 	}
 
 	public Long getTeamid() {
 		return teamid;
 	}
 
-	public TeamDTO getEditTeam() {
-		return editTeam;
+	public void setTeamid(Long teamid) {
+		this.teamid = teamid;
 	}
 
-	public void setEditTeam(TeamDTO editTeam) {
-		this.editTeam = editTeam;
+	public TeamFacade getTeamFacade() {
+		return teamFacade;
+	}
+
+	public void setTeamFacade(TeamFacade teamFacade) {
+		this.teamFacade = teamFacade;
 	}
 
 	public TeamPersonPickListView getTeamPersonPickListView() {
@@ -136,5 +149,4 @@ public class TeamView implements Serializable {
 	public void setTeamProjectPickListView(TeamProjectPickListView teamProjectPickListView) {
 		this.teamProjectPickListView = teamProjectPickListView;
 	}
-
 }

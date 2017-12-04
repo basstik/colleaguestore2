@@ -1,6 +1,5 @@
 package hu.bme.soft.arch.colleaguestore.facade;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -9,7 +8,6 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
-import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.facade.dto.Permission;
 import hu.bme.soft.arch.colleaguestore.persistence.TeamPersistenceManager;
 import hu.bme.soft.arch.colleaguestore.persistence.entity.Person;
@@ -27,24 +25,17 @@ public class TeamFacadeBean implements TeamFacade {
 
 	@Override
 	@RolesAllowed({ Permission.ADMIN, Permission.VIEW })
-	public List<TeamDTO> getTeams() {
-		List<TeamDTO> teamDTOs = new ArrayList<>();
+	public List<Team> getTeams() {
 		List<Team> teamEntities = teamPM.getTeams();
 		logger.info("Size team:" + teamEntities.size());
-
-		for (Team team : teamEntities) {
-			teamDTOs.add(new TeamDTO(team.getId(), team.getName()));
-		}
-		return teamDTOs;
+		return teamEntities;
 	}
 
 	@Override
 	@RolesAllowed(Permission.ADMIN)
-	public void create(TeamDTO newTeam) {
+	public void create(Team newTeam) {
 		logger.info("create() TeamName: " + newTeam.getName());
-		Team team = new Team();
-		team.setName(newTeam.getName());
-		teamPM.persist(team);
+		teamPM.persist(newTeam);
 	}
 
 	@Override
@@ -56,10 +47,11 @@ public class TeamFacadeBean implements TeamFacade {
 
 	@Override
 	@RolesAllowed(Permission.ADMIN)
-	public void modify(TeamDTO editTeam) {
+	public void modify(Team editTeam) {
 		logger.info("modify() TeamName: " + editTeam.getName() + " id: " + editTeam.getId());
 		Team find = teamPM.find(editTeam.getId());
 		find.setName(editTeam.getName());
+		find.setLeader(editTeam.getLeader());
 	}
 
 	@Override
