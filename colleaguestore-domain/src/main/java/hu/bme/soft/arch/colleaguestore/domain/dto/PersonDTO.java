@@ -5,8 +5,8 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
-import hu.bme.soft.arch.colleaguestore.domain.enumeration.LanguageSkill;
-import hu.bme.soft.arch.colleaguestore.domain.enumeration.Position;
+import hu.bme.soft.arch.colleaguestore.domain.enumaration.LanguageSkill;
+import hu.bme.soft.arch.colleaguestore.domain.enumaration.Position;
 
 public class PersonDTO implements Serializable {
 

@@ -9,7 +9,6 @@ import javax.inject.Inject;
 
 import org.slf4j.Logger;
 
-import hu.bme.soft.arch.colleaguestore.business.PersonServiceBean;
 import hu.bme.soft.arch.colleaguestore.domain.dto.TeamDTO;
 import hu.bme.soft.arch.colleaguestore.facade.dto.Permission;
 import hu.bme.soft.arch.colleaguestore.persistence.TeamPersistenceManager;
@@ -22,9 +21,6 @@ public class TeamFacadeBean implements TeamFacade {
 
 	@Inject
 	TeamPersistenceManager teamPM;
-
-	@Inject
-	PersonServiceBean personService;
 
 	@Inject
 	Logger logger;

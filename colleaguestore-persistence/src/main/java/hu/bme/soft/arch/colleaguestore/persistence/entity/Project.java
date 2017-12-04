@@ -21,8 +21,8 @@ public class Project extends BaseEntity {
 	private String name;
 
 	@Temporal(TemporalType.DATE)
-	@Column(name = "end", nullable = true)
-	private Date end;
+	@Column(name = "deadline", nullable = true)
+	private Date deadline;
 
 	@ManyToMany(mappedBy = "projects")
 	private List<Team> teams;
@@ -35,12 +35,12 @@ public class Project extends BaseEntity {
 		this.name = name;
 	}
 
-	public Date getEnd() {
-		return end;
+	public Date getDeadline() {
+		return deadline;
 	}
 
-	public void setEnd(Date end) {
-		this.end = end;
+	public void setDeadline(Date deadline) {
+		this.deadline = deadline;
 	}
 
 	public List<Team> getTeams() {

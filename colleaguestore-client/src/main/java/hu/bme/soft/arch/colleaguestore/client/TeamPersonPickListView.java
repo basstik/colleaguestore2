@@ -44,8 +44,6 @@ public class TeamPersonPickListView {
 		selectedTeamId = teamId;
 		HashSet<Person> allPersons = new HashSet<Person>(personFacade.getPersons());
 		HashSet<Person> personsByTeam = new HashSet<Person>(teamFacade.getPersonsByTeamId(teamId));
-		System.out.println(personsByTeam);
-		System.out.println(allPersons);
 		allPersons.removeAll(personsByTeam);
 		System.out.println(allPersons);
 
@@ -57,10 +55,9 @@ public class TeamPersonPickListView {
 			System.out.println("Fent: " + persons.getSource().get(0).getFirstName());
 		}
 		if (!persons.getTarget().isEmpty()) {
-			// System.out.println("Lend: " + persons.getTarget().get(0).getFirstName());
 			System.out.println("Lend: " + persons.getTarget());
+			teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
 		}
-		teamFacade.updatePersonList(selectedTeamId, persons.getTarget());
 	}
 
 	public void onSelect(SelectEvent event) {

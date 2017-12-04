@@ -49,7 +49,9 @@ public class TeamProjectPickListView {
 	public void saveProjects() {
 		System.out.println("Fent: " + projects.getSource());
 		System.out.println("Lend: " + projects.getTarget());
-		teamFacade.updateProjectList(selectedTeamId, projects.getTarget());
+		if (!projects.getTarget().isEmpty()) {
+			teamFacade.updateProjectList(selectedTeamId, projects.getTarget());
+		}
 	}
 
 	public DualListModel<Project> getProjects() {

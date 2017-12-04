@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import hu.bme.soft.arch.colleaguestore.domain.enumeration.Position;
+import hu.bme.soft.arch.colleaguestore.domain.enumaration.Position;
 
 @Entity
 @Table(name = "person")
