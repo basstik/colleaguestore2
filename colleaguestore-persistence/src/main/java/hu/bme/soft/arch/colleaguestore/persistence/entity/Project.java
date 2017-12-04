@@ -1,5 +1,6 @@
 package hu.bme.soft.arch.colleaguestore.persistence.entity;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -8,6 +9,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "project")
@@ -16,6 +19,10 @@ public class Project extends BaseEntity {
 
 	@Column(name = "name", nullable = true, length = 30)
 	private String name;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name = "end", nullable = true)
+	private Date end;
 
 	@ManyToMany(mappedBy = "projects")
 	private List<Team> teams;
@@ -26,6 +33,14 @@ public class Project extends BaseEntity {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public Date getEnd() {
+		return end;
+	}
+
+	public void setEnd(Date end) {
+		this.end = end;
 	}
 
 	public List<Team> getTeams() {

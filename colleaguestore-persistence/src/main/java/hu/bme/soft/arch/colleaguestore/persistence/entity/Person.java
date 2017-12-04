@@ -39,12 +39,6 @@ public class Person extends BaseEntity {
 	@Column(name = "position", length = 50)
 	private Position position;
 
-	// @JoinTable(name = "person_skill", joinColumns = @JoinColumn(name = "ID"))
-	// @Enumerated(EnumType.STRING)
-	// @ElementCollection
-	// @Column(name = "skill", length = 20)
-	// private Set<LanguageSkill> skill;
-
 	@ManyToMany(mappedBy = "persons")
 	private List<Team> teams;
 
