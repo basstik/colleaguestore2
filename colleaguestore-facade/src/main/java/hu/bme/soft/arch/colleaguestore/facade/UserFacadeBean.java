@@ -14,7 +14,7 @@ import hu.bme.soft.arch.colleaguestore.facade.dto.Permission;
 import hu.bme.soft.arch.colleaguestore.facade.dto.UserDTO;
 
 @Stateless
-public class UserFacade {
+public class UserFacadeBean {
 
 	@Inject
 	Logger logger;

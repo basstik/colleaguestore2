@@ -7,7 +7,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.inject.Inject;
 
-import hu.bme.soft.arch.colleaguestore.facade.UserFacade;
+import hu.bme.soft.arch.colleaguestore.facade.UserFacadeBean;
 import hu.bme.soft.arch.colleaguestore.facade.dto.UserDTO;
 
 @ManagedBean(name = "userData")
@@ -15,7 +15,7 @@ import hu.bme.soft.arch.colleaguestore.facade.dto.UserDTO;
 public class UserData implements Serializable {
 
 	@Inject
-	private UserFacade userFacade;
+	private UserFacadeBean userFacade;
 
 	private UserDTO user;
 

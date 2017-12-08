@@ -17,9 +17,9 @@ import hu.bme.soft.arch.colleaguestore.persistence.entity.Roles;
 //Access wsdl: http://localhost:8080/webservice/UserRoleService?wsdl
 
 @Stateless
-@WebService(serviceName = "UserRole")
+@WebService(serviceName = "UserRoleWebServiceBean")
 @WebContext(contextRoot = "/webservice", urlPattern = "/UserRoleService")
-public class UserRole {
+public class UserRoleWebServiceBean {
 
 	@Inject
 	Logger logger;
@@ -27,7 +27,7 @@ public class UserRole {
 	@Inject
 	UserPersistenceManager userPM;
 
-	public UserRole() {
+	public UserRoleWebServiceBean() {
 	}
 
 	@WebMethod
